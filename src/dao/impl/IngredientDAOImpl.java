@@ -48,7 +48,7 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
     public <S extends IngredientDTO> S update(S dto) {
         Connection conn = null;
         PreparedStatement pstm = null;
-        String sql = "UPDATE INGREDIENT SET INGREDIENT_NAME = ?, STOCK = ?, INGREDIENT_PRICE = ?, INGREDIENT_CALORIE = ?, INGREDIENT_CATEGORY WHERE INGREDIENT_ID = ?";
+        String sql = "UPDATE INGREDIENT SET INGREDIENT_NAME = ?, STOCK = ?, INGREDIENT_PRICE = ?, INGREDIENT_CALORIE = ?, INGREDIENT_CATEGORY = ? WHERE INGREDIENT_ID = ?";
 
         try {
             conn = DBManager.getConnection();
