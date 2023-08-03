@@ -336,6 +336,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
             st = conn.createStatement();
             rs = st.executeQuery(sql);
             MemberOrderDTO theMemberOrder = new MemberOrderDTO();
+
             while(rs.next()) {
                 theMemberOrder.setMemberOrderId(rs.getLong(1));
                 theMemberOrder.setSelectBread(rs.getInt(2));
@@ -359,8 +360,39 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
         }
     }
 
+
+    //SELECT MEMBERORDERID , SELECT_BREAD, SELECT_CHEESE, SELECT_ADDITIONALMENU, EXCLUDE_VEGETABLE, SELECT_SOURCE, ORDER_DATE, MENU_ID, MEMBER_ID FROM (SELECT MEMBERORDERID , SELECT_BREAD, SELECT_CHEESE, SELECT_ADDITIONALMENU, EXCLUDE_VEGETABLE, SELECT_SOURCE, ORDER_DATE, MENU_ID, MEMBER_ID FROM MEMBERORDER WHERE MEMBER_ID = 40 ORDER BY ORDER_DATE) WHERE ROWNUM = 1;
     @Override
     public MemberOrderDTO findByMenuIdAndMemberId(Long menuId, Long memberId) {
-        return null;
+        Connection conn = null;
+        Statement st = null;
+        ResultSet rs = null;
+        String sql = "SELECT MEMBERORDERID , SELECT_BREAD, SELECT_CHEESE, SELECT_ADDITIONALMENU, EXCLUDE_VEGETABLE, SELECT_SOURCE, ORDER_DATE, MENU_ID, MEMBER_ID FROM (SELECT MEMBERORDERID , SELECT_BREAD, SELECT_CHEESE, SELECT_ADDITIONALMENU, EXCLUDE_VEGETABLE, SELECT_SOURCE, ORDER_DATE, MENU_ID, MEMBER_ID FROM MEMBERORDER WHERE MEMBER_ID = ? ORDER BY ORDER_DATE) WHERE ROWNUM = 1";
+
+        try {
+            conn = DBManager.getConnection();
+            st = conn.createStatement();
+            rs = st.executeQuery(sql);
+            MemberOrderDTO theMemberOrder = new MemberOrderDTO();
+
+            rs.next();
+            theMemberOrder.setMemberOrderId(rs.getLong(1));
+            theMemberOrder.setSelectBread(rs.getInt(2));
+            theMemberOrder.setSelectCheese(rs.getInt(3));
+            theMemberOrder.setSelectedAdditionalMenu(rs.getString(4));
+            theMemberOrder.setExcludedVegetable(rs.getString(5));
+            theMemberOrder.setSelectedSource(rs.getString(6));
+            theMemberOrder.setOrderDate(rs.getString(7));
+            theMemberOrder.setMenuId(rs.getLong(8));
+            theMemberOrder.setMemberId(rs.getLong(9));
+            theMemberOrder.setOrderStatus(rs.getString(10).charAt(0));
+
+            return theMemberOrder;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        } finally {
+            DBManager.releaseConnection(conn, st, rs);
+        }
     }
 }

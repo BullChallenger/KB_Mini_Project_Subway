@@ -93,7 +93,7 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
 
             while(rs.next()){
                 //객체에 메뉴 아이디에 해당하는 정보 저장
-                dto=new MenuDTO(rs.getInt("meu_id"),rs.getString("menu_name"),
+                dto = new MenuDTO(rs.getLong("menu_id"),rs.getString("menu_name"),
                         rs.getInt("menu_price"),rs.getInt("menu_calorie"));
             }
 
@@ -116,7 +116,7 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
         PreparedStatement ps = null;
         ResultSet rs=null;
         List<MenuDTO> list=new ArrayList<>();
-        String sql="SELECT * FROM MENU?";
+        String sql="SELECT * FROM MENU";
         try{
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
