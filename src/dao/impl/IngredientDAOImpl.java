@@ -3,6 +3,7 @@ package dao.impl;
 import common.DBManager;
 import dao.IngredientDAO;
 import dto.IngredientDTO;
+import dto.MemberDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -82,7 +83,7 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
             st = conn.createStatement();
             rs = st.executeQuery(sql);
             rs.next();
-            
+
             theIngredient.setIngredientId(rs.getLong(1));
             theIngredient.setIngredientName(rs.getString(2));
             theIngredient.setStock(rs.getInt(3));
@@ -208,10 +209,7 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
         }
     }
 
-    @Override
-    public Object findByPhoneNumber(String phoneNumber) {
-        return null;
-    }
+
 
     @Override
     public Iterable<IngredientDTO> findByIngredientCategory(String ingredientCategory) {
@@ -278,22 +276,86 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
 
     @Override
     public IngredientDTO updateIngredientStockByIngredientId(Long ingredientId, int stock) {
-        return null;
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        String sql = "UPDATE INGREDIENT SET STOCK = ? WHERE INGREDIENT_ID = " + ingredientId;
+        IngredientDTO theIngredient = new IngredientDTO();
+
+        try {
+            conn = DBManager.getConnection();
+            pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, stock);
+            pstm.executeUpdate();
+
+            return theIngredient;
+        }catch (SQLException e) {
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, pstm);
+        }
     }
 
     @Override
     public IngredientDTO updateIngredientStockByIngredientName(String ingredientName, int stock) {
-        return null;
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        String sql = "UPDATE INGREDIENT SET STOCK = ? WHERE INGREDIENT_NAME = " + ingredientName;
+        IngredientDTO theIngredient = new IngredientDTO();
+
+        try {
+            conn = DBManager.getConnection();
+            pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, stock);
+            pstm.executeUpdate();
+
+            return theIngredient;
+        }catch (SQLException e) {
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, pstm);
+        }
     }
 
     @Override
     public IngredientDTO updateIngredientPriceByIngredientId(Long ingredientId, int price) {
-        return null;
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        String sql = "UPDATE INGREDIENT SET PRICE = ? WHERE INGREDIENT_ID = " + ingredientId;
+        IngredientDTO theIngredient = new IngredientDTO();
+
+        try {
+            conn = DBManager.getConnection();
+            pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, price);
+            pstm.executeUpdate();
+
+            return theIngredient;
+        }catch (SQLException e) {
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, pstm);
+        }
     }
 
     @Override
     public IngredientDTO updateIngredientPriceByIngredientName(String ingredientName, int stock) {
-        return null;
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        String sql = "UPDATE INGREDIENT SET PRICE = ? WHERE INGREDIENT_NAME = " + ingredientName;
+        IngredientDTO theIngredient = new IngredientDTO();
+
+        try {
+            conn = DBManager.getConnection();
+            pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, stock);
+            pstm.executeUpdate();
+
+            return theIngredient;
+        }catch (SQLException e) {
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, pstm);
+        }
     }
 
 
