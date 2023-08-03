@@ -15,6 +15,13 @@ public class SuccesssView {
         }
     }
 
+    public static void printStocks(List<IngredientDTO> ingredientDTOS) {
+        for (IngredientDTO ingredientDTO : ingredientDTOS) {
+            System.out.println(ingredientDTO.getIngredientId()+"|"+ingredientDTO.getIngredientName()+"|"+ingredientDTO.getStock()
+                    +"|"+ingredientDTO.getIngredientCategory());
+        }
+    }
+
     public static void printAllMenu(List<MenuDTO> allMenu) {
         for (MenuDTO menu : allMenu) {
             System.out.println(menu.getMenuName());

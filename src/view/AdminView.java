@@ -66,7 +66,7 @@ public class AdminView {
                         manageStore();
                         break;
                     case 2:
-                        viewStockCrud();
+
                         manageStore();
                         break;
                     case 3:
@@ -90,8 +90,12 @@ public class AdminView {
      * - 재료 메뉴 레시피 CRUD
      */
     public static void manageStore() {
-//        AdminController.
-    }
+        System.out.println("재류 아이디 | 재료 이름 | 재고 | 재고 카테고리 ");
+        AdminController.getStock();
+//        for(IngredientDTO i : list){
+//            System.out.println(i.toString());
+        }
+
 
     /**
      * 관리자의 주문관리
