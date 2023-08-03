@@ -2,7 +2,7 @@ package dao;
 
 import dto.IngredientDTO;
 
-public interface IngredientDAO extends BaseDAO<IngredientDTO, Long> {
+public interface IngredientDAO<IngredientDTO, Long> extends BaseDAO<IngredientDTO, Long> {
 
     /**
      * @method findByIngredientCategory : 재료 카테고리 별로 재료 정보 검색
