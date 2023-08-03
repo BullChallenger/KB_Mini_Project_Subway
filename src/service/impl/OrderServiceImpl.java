@@ -23,8 +23,9 @@ public class OrderServiceImpl implements OrderService {
     private OrderServiceImpl(){}
     public static OrderServiceImpl getInstance() { return instance; }
     @Override
-    public MemberOrderDTO saveMemberOrder(MemberOrderDTO dto) {
-        return null;
+    public MemberOrderDTO saveMemberOrder(MemberOrderDTO dto) throws RuntimeException{
+        MemberOrderDTO saveMemberOrderDTO = (MemberOrderDTO) memberOrderDAO.save(dto);
+        return saveMemberOrderDTO;
     }
 
     @Override
@@ -94,7 +95,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<MemberOrderDTO> findAllOrderInfo() {
-        return null;
+        Iterable orderDAOAll = memberOrderDAO.findAll();
+        ArrayList<MemberOrderDTO> list = new ArrayList<>();
+        for (Object o : orderDAOAll) {
+            list.add((MemberOrderDTO) o);
+        }
+        return list;
     }
 
     @Override
