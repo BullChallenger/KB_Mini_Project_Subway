@@ -55,20 +55,24 @@ public class AdminView {
         while (true) {
             System.out.println("\n----------------------------------------");
             System.out.print("[ 1. 재고상태 조회   ");
-            System.out.print("2. 재고 업데이트   ");
-            System.out.print("3. 재고 삭제 ]");
+            System.out.print("2. 재고 상태 변경   ");
+            System.out.print("3. 재고 삭제 ");
+            System.out.print("4. 종료 ]");
             System.out.println("\n--------------------------------------------");
             try {
                 int menu = Integer.parseInt(sc.nextLine());//
                 switch (menu) {
                     case 1:
-                        manageOrder();
+                        manageStore();
                         break;
                     case 2:
                         viewStockCrud();
                         manageStore();
                         break;
                     case 3:
+                        System.out.println(" 삭제");
+                        return;
+                    case 4:
                         System.out.println(" 로그아웃됩니다...");
                         return;
                     default:

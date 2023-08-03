@@ -1,11 +1,7 @@
 package controller;
 
-import dao.impl.IngredientDAOImpl;
-import dto.IngredientDTO;
 import view.AdminView;
 import view.FailView;
-
-import java.util.List;
 
 public class AdminController {
     public static void checkAdmin(String password) {
@@ -17,13 +13,13 @@ public class AdminController {
         }
     }
 
-    public class list getStock(){
-        List<IngredientDTO> list=IngredientDAOImpl.getInstance().findAll();
-        if(list.size()>0){
-            AdminService.
-        }else{
-            FailView.errorMessage("재고 항목이 존재하지 않습니다.");
-        }
-
-    }
+//    public class list getStock(){
+//        List<IngredientDTO> list=IngredientDAOImpl.getInstance().findAll();
+//        if(list.size()>0){
+//            service.impl.AdminServiceImpl
+//        }else{
+//            FailView.errorMessage("재고 항목이 존재하지 않습니다.");
+//        }
+//
+//    }
 }
