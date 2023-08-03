@@ -116,7 +116,7 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
         PreparedStatement ps = null;
         ResultSet rs=null;
         List<MenuDTO> list=new ArrayList<>();
-        String sql="SELECT * FROM MENU?";
+        String sql="SELECT * FROM MENU";
         try{
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
