@@ -1,6 +1,7 @@
 package service.impl;
 
-import dao.MemberOrderDAO;
+import dao.*;
+import dao.impl.*;
 import dto.AnonymousOrderDTO;
 import dto.IngredientDTO;
 import dto.MemberOrderDTO;
@@ -10,6 +11,11 @@ import service.OrderService;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
+
+    private static final MemberOrderDAO memberOrderDAO = MemberOrderDAOImpl.getInstance();
+    private static final AnonymousOrderDAO anonymousOrderDAO = AnonymousOrderDAOImpl.getInstance();
+    private static final MenuDAO menuDAO = MenuDAOImpl.getInstance();
+    private static final IngredientDAO ingredientDAO = IngredientDAOImpl.getInstance();
 
     private static final OrderServiceImpl instance = new OrderServiceImpl();
     private OrderServiceImpl(){}

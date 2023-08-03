@@ -3,6 +3,7 @@ package service.impl;
 import dao.MemberDAO;
 import dao.impl.MemberDAOImpl;
 import dto.MemberDTO;
+import exception.NotMemberException;
 import service.MemberService;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDTO findByPhoneNumber(String phoneNumber) {
+    public MemberDTO findByPhoneNumber(String phoneNumber) throws NotMemberException {
         return (MemberDTO) memberDAO.findByPhoneNumber(phoneNumber);
     }
 
