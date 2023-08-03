@@ -197,4 +197,5 @@ public interface AdminService {
      * @param ingredientId
      */
     void deleteComposeByMenuIdAndIngredientId(Long menuId, Long ingredientId);
+
 }

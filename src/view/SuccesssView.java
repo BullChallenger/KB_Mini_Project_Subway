@@ -1,8 +1,10 @@
 package view;
 
 import dto.IngredientDTO;
+import dto.MemberOrderDTO;
 import dto.MenuDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SuccesssView {
@@ -17,5 +19,19 @@ public class SuccesssView {
         for (MenuDTO menu : allMenu) {
             System.out.println(menu.getMenuName());
         }
+    }
+
+    public static void printOrderStatus(List<MemberOrderDTO> allOrderInfo) {
+        for (MemberOrderDTO memberOrderDTO : allOrderInfo) {
+            System.out.println(memberOrderDTO.getMemberId());
+            System.out.println(memberOrderDTO.getMemberOrderId());
+        }
+    }
+
+    public static void printMenuInfo(ArrayList<MenuDTO> cart) {
+        for (MenuDTO menuDTO : cart) {
+            System.out.println("menuDTO.getMenuName() = " + menuDTO.getMenuName());
+        }
+
     }
 }

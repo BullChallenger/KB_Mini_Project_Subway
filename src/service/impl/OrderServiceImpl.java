@@ -78,4 +78,14 @@ public class OrderServiceImpl implements OrderService {
     public List<IngredientDTO> findIngredientByIngredientCategory(int ingredientCategory) {
         return null;
     }
+
+    @Override
+    public List<MemberOrderDTO> findAllOrderInfo() {
+        return null;
+    }
+
+    @Override
+    public MenuDTO findMenuByMenuId(Long id) {
+        return null;
+    }
 }

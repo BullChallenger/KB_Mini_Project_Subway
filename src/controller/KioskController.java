@@ -2,6 +2,7 @@ package controller;
 
 import dto.IngredientDTO;
 import dto.MemberDTO;
+import dto.MemberOrderDTO;
 import dto.MenuDTO;
 import exception.NotMemberException;
 import service.MemberService;
@@ -13,6 +14,7 @@ import view.KioskView;
 import view.SuccesssView;
 import vo.OrderVo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,6 +25,7 @@ public class KioskController {
     private static MemberService memberService = MemberServiceImpl.getInstance();
     private static OrderService orderService = OrderServiceImpl.getInstance();
 
+    private static ArrayList<MemberOrderDTO> cart = new ArrayList<>();
 
     /**
      * 멤버 유효성 검사
@@ -43,17 +46,41 @@ public class KioskController {
 
     /**
      * 주문
-     * @param memberPhoneNumber: 멤버 전화 번호 (멤버 식별)
+     *
      */
-    public static void order(String memberPhoneNumber, OrderVo vo) {
+    public static void order(Long memberId, OrderVo vo) {
+        try {
+            MemberOrderDTO orderDTO = orderService.saveMemberOrder(new MemberOrderDTO(
+                    (long) 0,
+                    vo.getSelectBread(),
+                    vo.getSelectCheese(),
+                    vo.getSelectedAdditionalMenu(),
+                    vo.getExcludedVegetable(),
+                    vo.getSelectedSource(),
+                    null,
+                    'N',
+                    memberId,
+                    (long) vo.getMenuId()));
 
+            cart.add(orderDTO);
+
+            KioskView.addCartOrPay(memberId, cart);
+
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * 주문 현황 확인
      */
     public static void orderSelectByAll() {
-
+        try {
+            List<MemberOrderDTO> allOrderInfo = orderService.findAllOrderInfo();
+            SuccesssView.printOrderStatus(allOrderInfo);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -128,7 +155,34 @@ public class KioskController {
         }
     }
 
+    /**
+     * 멤버의 해당 메뉴에 대한 과거 기록 조회
+     * @param memberId
+     * @param menuId
+     */
     public static void getMemberOrderHistory(Long memberId, long menuId) {
-        
+        // orderService.() -- 추가할 내용 memberId, menuId => MemberOrderDTO 반환
+
+    }
+
+    /**
+     * 결제하기
+     */
+    public static void cartPayment() {
+
+    }
+
+    public static void findMenuByMenuId(ArrayList<MemberOrderDTO> cart) {
+        ArrayList<MenuDTO> cartMenu = null;
+
+        try {
+            for (MemberOrderDTO orderDTO : cart) {
+                MenuDTO menu = orderService.findMenuByMenuId(orderDTO.getMenuId());
+                cartMenu.add(menu);
+            }
+            SuccesssView.printMenuInfo(cartMenu);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
     }
 }

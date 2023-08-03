@@ -38,4 +38,8 @@ public interface OrderService {
 
     /* Ingredient */
     List<IngredientDTO> findIngredientByIngredientCategory(int ingredientCategory);
+
+    List<MemberOrderDTO> findAllOrderInfo();
+
+    MenuDTO findMenuByMenuId(Long id);
 }
