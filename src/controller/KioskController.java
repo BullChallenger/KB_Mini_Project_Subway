@@ -25,7 +25,7 @@ public class KioskController {
     private static MemberService memberService = MemberServiceImpl.getInstance();
     private static OrderService orderService = OrderServiceImpl.getInstance();
 
-    private static ArrayList<MemberOrderDTO> cart = new ArrayList<>();
+    private static ArrayList<OrderVo> cart = new ArrayList<>();
 
     /**
      * 멤버 유효성 검사
@@ -50,22 +50,8 @@ public class KioskController {
      */
     public static void order(Long memberId, OrderVo vo) {
         try {
-            MemberOrderDTO orderDTO = orderService.saveMemberOrder(new MemberOrderDTO(
-                    (long) 0,
-                    vo.getSelectBread(),
-                    vo.getSelectCheese(),
-                    vo.getSelectedAdditionalMenu(),
-                    vo.getExcludedVegetable(),
-                    vo.getSelectedSource(),
-                    null,
-                    'N',
-                    memberId,
-                    (long) vo.getMenuId()));
-
-            cart.add(orderDTO);
-
+            cart.add(vo);
             KioskView.addCartOrPay(memberId, cart);
-
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
@@ -162,22 +148,43 @@ public class KioskController {
      */
     public static void getMemberOrderHistory(Long memberId, long menuId) {
         // orderService.() -- 추가할 내용 memberId, menuId => MemberOrderDTO 반환
-
+        try {
+            //orderService.findHistoryByMemberMenuId(memberId, menuId);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * 결제하기
      */
-    public static void cartPayment() {
-
-    }
-
-    public static void findMenuByMenuId(ArrayList<MemberOrderDTO> cart) {
-        ArrayList<MenuDTO> cartMenu = null;
+    public static void cartPayment(long memberId) {
 
         try {
-            for (MemberOrderDTO orderDTO : cart) {
-                MenuDTO menu = orderService.findMenuByMenuId(orderDTO.getMenuId());
+            for (OrderVo vo : cart) {
+                MemberOrderDTO orderDTO = orderService.saveMemberOrder(new MemberOrderDTO(
+                        (long) 0,
+                        vo.getSelectBread(),
+                        vo.getSelectCheese(),
+                        vo.getSelectedAdditionalMenu(),
+                        vo.getExcludedVegetable(),
+                        vo.getSelectedSource(),
+                        null,
+                        'N',
+                        memberId,
+                        (long) vo.getMenuId()));
+            }
+            SuccesssView.printMessageOrderSuccess("주문성공");
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void findMenuByMenuId(ArrayList<OrderVo> cart) {
+        ArrayList<MenuDTO> cartMenu = new ArrayList<>();
+        try {
+            for (OrderVo vo : cart) {
+                MenuDTO menu = orderService.findMenuByMenuId((long) vo.getMenuId());
                 cartMenu.add(menu);
             }
             SuccesssView.printMenuInfo(cartMenu);

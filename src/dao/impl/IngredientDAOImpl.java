@@ -217,7 +217,8 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
         Connection conn = null;
         Statement st = null;
         ResultSet rs = null;
-        String sql = "SELECT INGREDIENT_ID, INGREDIENT_NAME, STOCK, INGREDIENT_PRICE, INGREDIENT_CALORIE, INGREDIENT_CATEGORY FROM INGREDIENT WHERE INGREDIENT_CATEGORY = " + ingredientCategory;
+
+        String sql = "SELECT INGREDIENT_ID, INGREDIENT_NAME, STOCK, INGREDIENT_PRICE, INGREDIENT_CALORIE, INGREDIENT_CATEGORY FROM INGREDIENT WHERE INGREDIENT_CATEGORY = "+ingredientCategory;
 
         List<IngredientDTO> ingredientList = new ArrayList<>();
 

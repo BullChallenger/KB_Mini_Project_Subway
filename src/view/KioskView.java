@@ -6,6 +6,7 @@ import dto.MemberOrderDTO;
 import dto.MenuDTO;
 import vo.OrderVo;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -77,13 +78,14 @@ public class KioskView {
                         String userSelectSource = sc.nextLine();
                         vo.setSelectedSource(userSelectSource);
 
+
                         KioskController.order(dto.getMemberId(), vo);
                         break;
                     case 2:
                         KioskController.orderSelectByAll();
                         break;
                     case 3:
-                        KioskController.cartPayment();
+                        KioskController.cartPayment(dto.getMemberId());
                         break;
                     case 4:
                         System.out.println("다음에 다시 만나요~~^^ 로그아웃됩니다...");
@@ -119,7 +121,7 @@ public class KioskView {
         }//while문
     }
 
-    public static void addCartOrPay(Long memberId, ArrayList<MemberOrderDTO> cart) {
+    public static void addCartOrPay(Long memberId, ArrayList<OrderVo> cart) {
         System.out.println("\n----------------------------------------");
         KioskController.findMenuByMenuId(cart);
 
@@ -135,9 +137,11 @@ public class KioskView {
                     break;
                 case 2:
                     // 결제 창으로
+                    KioskController.cartPayment(memberId);
+
                     break;
                 default:
-                    System.out.println("잘못되었습니다..다시 입력해주세요.");
+                    System.out.println("잘못되었습니다. 다시 입력해주세요.");
             }
         } catch (NumberFormatException e) {
             System.out.println("메뉴는 숫자만 가능합니다.");
