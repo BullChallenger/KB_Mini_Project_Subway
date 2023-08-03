@@ -10,14 +10,69 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> {
+
+    private static final MemberOrderDAOImpl instance = new MemberOrderDAOImpl();
+
+    private MemberOrderDAOImpl(){
+    }
+
+    public static MemberOrderDAOImpl getInstance() {return instance;}
+
     @Override
     public <S extends MemberOrderDTO> S save(S dto) {
-        return null;
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        String sql = "INSERT INTO MEMBERORDER (SELECT_BREAD, SELECT_CHEESE, SELECT_ADDITIONALMENU, EXCLUDE_VEGETABLE , SELECT_SOURCE , MENU_ID , MEMBER_ID , ORDER_STATUS) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try {
+            conn = DBManager.getConnection();
+            pstm = conn.prepareStatement(sql);
+
+            pstm.setInt(1, dto.getSelectBread());
+            pstm.setInt(2, dto.getSelectCheese());
+            pstm.setString(3, dto.getSelectedAdditionalMenu());
+            pstm.setString(4, dto.getExcludedVegetable());
+            pstm.setString(5, dto.getSelectedSource());
+            pstm.setLong(6, dto.getMenuId());
+            pstm.setLong(7, dto.getMemberId());
+            pstm.setString(8, String.valueOf(dto.getOrderStatus()));
+
+            pstm.executeUpdate();
+
+            return dto;
+        }catch (SQLException e) {
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, pstm);
+        }
     }
 
     @Override
     public <S extends MemberOrderDTO> S update(S dto) {
-        return null;
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        String sql = "UPDATE MEMBERORDER SET SELECT_BREAD = ?, SELECT_CHEESE = ?, SELECT_ADDITIONALMENU = ?, EXCLUDE_VEGETABLE = ?, SELECT_SOURCE = ? , MENU_ID = ?, MEMBER_ID = ?, ORDER_STATUS =? WHERE INGREDIENT_ID = ?";
+
+        try {
+            conn = DBManager.getConnection();
+            pstm = conn.prepareStatement(sql);
+
+            pstm.setInt(1, dto.getSelectBread());
+            pstm.setInt(2, dto.getSelectCheese());
+            pstm.setString(3, dto.getSelectedAdditionalMenu());
+            pstm.setString(4, dto.getExcludedVegetable());
+            pstm.setString(5, dto.getSelectedSource());
+            pstm.setLong(6, dto.getMenuId());
+            pstm.setLong(7, dto.getMemberId());
+            pstm.setString(8, String.valueOf(dto.getOrderStatus()));
+            pstm.executeUpdate();
+
+            return dto;
+        }catch (SQLException e) {
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, pstm);
+        }
     }
 
     @Override
@@ -302,5 +357,10 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
+    }
+
+    @Override
+    public MemberOrderDTO findByMenuIdAndMemberId(Long menuId, Long memberId) {
+        return null;
     }
 }
