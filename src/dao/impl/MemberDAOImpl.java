@@ -24,7 +24,7 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
     public <S extends MemberDTO> S save(S dto) {
         Connection conn = null;
         PreparedStatement pstm = null;
-        String sql = "INSERT INTO MEMBER (MEMEBER_NAME, PHONE_NUMBER) VALUES(?, ?)";
+        String sql = "INSERT INTO MEMBER (MEMBER_NAME, PHONE_NUMBER) VALUES(?, ?)";
 
         try {
             conn = DBManager.getConnection();

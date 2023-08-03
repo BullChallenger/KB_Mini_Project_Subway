@@ -113,7 +113,8 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
         Connection conn = null;
         Statement st = null;
         ResultSet rs = null;
-        String sql = "SELECT MEMBERORDERID, SELECT_BREAD , SELECT_CHEESE , SELECT_ADDITIONALMENU , EXCLUDE_VEGETABLE , SELECT_SOURCE , ORDER_DATE , MENU_ID , MEMBER_ID , ORDER_STATUS FROM MEMBERORDER";
+        String sql = "SELECT MEMBERORDERID, SELECT_BREAD , SELECT_CHEESE , SELECT_ADDITIONALMENU , EXCLUDE_VEGETABLE , SELECT_SOURCE , ORDER_DATE , MENU_ID , MEMBER_ID , ORDER_STATUS FROM MEMBERORDER " +
+                     "WHERE ORDER_STATUS = 'N'";
 
 
 
@@ -363,14 +364,12 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
         }
     }
 
-
-    //SELECT MEMBERORDERID , SELECT_BREAD, SELECT_CHEESE, SELECT_ADDITIONALMENU, EXCLUDE_VEGETABLE, SELECT_SOURCE, ORDER_DATE, MENU_ID, MEMBER_ID FROM (SELECT MEMBERORDERID , SELECT_BREAD, SELECT_CHEESE, SELECT_ADDITIONALMENU, EXCLUDE_VEGETABLE, SELECT_SOURCE, ORDER_DATE, MENU_ID, MEMBER_ID FROM MEMBERORDER WHERE MEMBER_ID = 40 ORDER BY ORDER_DATE) WHERE ROWNUM = 1;
     @Override
     public MemberOrderDTO findByMenuIdAndMemberId(Long menuId, Long memberId) {
         Connection conn = null;
         Statement st = null;
         ResultSet rs = null;
-        String sql = "SELECT MEMBERORDERID , SELECT_BREAD, SELECT_CHEESE, SELECT_ADDITIONALMENU, EXCLUDE_VEGETABLE, SELECT_SOURCE, ORDER_DATE, MENU_ID, MEMBER_ID FROM (SELECT MEMBERORDERID , SELECT_BREAD, SELECT_CHEESE, SELECT_ADDITIONALMENU, EXCLUDE_VEGETABLE, SELECT_SOURCE, ORDER_DATE, MENU_ID, MEMBER_ID FROM MEMBERORDER WHERE MEMBER_ID = ? ORDER BY ORDER_DATE) WHERE ROWNUM = 1";
+        String sql = "SELECT MEMBERORDERID , SELECT_BREAD, SELECT_CHEESE, SELECT_ADDITIONALMENU, EXCLUDE_VEGETABLE, SELECT_SOURCE, ORDER_DATE, MENU_ID, MEMBER_ID, ORDER_STATUS FROM (SELECT MEMBERORDERID , SELECT_BREAD, SELECT_CHEESE, SELECT_ADDITIONALMENU, EXCLUDE_VEGETABLE, SELECT_SOURCE, ORDER_DATE, MENU_ID, MEMBER_ID, ORDER_STATUS FROM MEMBERORDER WHERE MEMBER_ID = ?" + memberId + " ORDER BY ORDER_DATE DESC) WHERE ROWNUM = 1";
 
         try {
             conn = DBManager.getConnection();
@@ -396,6 +395,25 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
             throw new RuntimeException();
         } finally {
             DBManager.releaseConnection(conn, st, rs);
+        }
+    }
+
+    @Override
+    public int updateOrderStatusByMemberOrderId(Long memberOrderId) {
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        String sql = "UPDATE MEMBERORDER SET ORDER_STATUS = 'Y' WHERE MEMBERORDERID = " + memberOrderId;
+        MemberOrderDTO theMemberOrder = new MemberOrderDTO();
+
+        try {
+            conn = DBManager.getConnection();
+            pstm = conn.prepareStatement(sql);
+
+            return pstm.executeUpdate();
+        }catch (SQLException e) {
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, pstm);
         }
     }
 }

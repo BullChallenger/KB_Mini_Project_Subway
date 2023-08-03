@@ -108,4 +108,9 @@ public class OrderServiceImpl implements OrderService {
         MenuDTO menuDTO = (MenuDTO) menuDAO.findById(id);
         return menuDTO;
     }
+
+    @Override
+    public int updateOrderStatusByMemberOrderId(Long id) {
+        return memberOrderDAO.updateOrderStatusByMemberOrderId(id);
+    }
 }
