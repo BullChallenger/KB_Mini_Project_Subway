@@ -36,6 +36,7 @@ public class AdminView {
                         manageOrder();
                         break;
                     case 2:
+//                        viewStockCrud();
                         manageStore();
                         break;
                     case 3:
@@ -50,12 +51,46 @@ public class AdminView {
         }//while문
     }
 
+    private static void viewStockCrud() {
+        while (true) {
+            System.out.println("\n----------------------------------------");
+            System.out.print("[ 1. 재고상태 조회   ");
+            System.out.print("2. 재고 상태 변경   ");
+            System.out.print("3. 재고 삭제 ");
+            System.out.print("4. 종료 ]");
+            System.out.println("\n--------------------------------------------");
+            try {
+                int menu = Integer.parseInt(sc.nextLine());//
+                switch (menu) {
+                    case 1:
+                        manageStore();
+                        break;
+                    case 2:
+                        viewStockCrud();
+                        manageStore();
+                        break;
+                    case 3:
+                        System.out.println(" 삭제");
+                        return;
+                    case 4:
+                        System.out.println(" 로그아웃됩니다...");
+                        return;
+                    default:
+                        System.out.println("잘못되었습니다..다시 입력해주세요.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("요청을 처리할 수 없습니다.");
+            }
+        }
+
+    }
+
     /**
      * 관리자의 매장 관리
      * - 재료 메뉴 레시피 CRUD
      */
     public static void manageStore() {
-
+//        AdminController.
     }
 
     /**
