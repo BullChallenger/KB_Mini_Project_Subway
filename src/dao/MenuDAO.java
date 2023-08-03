@@ -2,6 +2,6 @@ package dao;
 
 import dto.MenuDTO;
 
-public interface MenuDAO extends BaseDAO<MenuDTO, Long>{
+public interface MenuDAO<MenuDTO, Long> extends BaseDAO<MenuDTO, Long> {
 
 }

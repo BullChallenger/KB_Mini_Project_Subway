@@ -4,7 +4,7 @@ import dto.MemberOrderDTO;
 
 import java.util.List;
 
-public interface MemberOrderDAO extends BaseDAO<MemberOrderDTO, Long> {
+public interface MemberOrderDAO<MemberOrderDTO, Long> extends BaseDAO<MemberOrderDTO, Long> {
 
     Long countByMemberOrderDate(String memberOrderDate);
 
