@@ -24,7 +24,7 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
     public <S extends MemberDTO> S save(S dto) {
         Connection conn = null;
         PreparedStatement pstm = null;
-        String sql = "INSERT INTO MEMBER (MEMEBER_NAME, PHONE_NUMBER) VALUES(?, ?)";
+        String sql = "INSERT INTO MEMBER (MEMBER_NAME, PHONE_NUMBER) VALUES(?, ?)";
 
         try {
             conn = DBManager.getConnection();
@@ -209,7 +209,7 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
         Connection conn = null;
         Statement st = null;
         ResultSet rs = null;
-        String sql = "SELECT MEMBER_ID, MEMEBER_NAME, PHONE_NUMBER, POINT FROM MEMBER WHERE PHONE_NUMBER LIKE '" + phoneNumber + "'";
+        String sql = "SELECT MEMBER_ID, MEMBER_NAME, PHONE_NUMBER, POINT FROM MEMBER WHERE PHONE_NUMBER LIKE '" + phoneNumber + "'";
         MemberDTO theMember = new MemberDTO();
 
         try {

@@ -17,5 +17,14 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="ojdbc8" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/lombok-1.18.22.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
