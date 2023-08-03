@@ -121,10 +121,11 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
             conn = DBManager.getConnection();
             st = conn.createStatement();
             rs = st.executeQuery(sql);
-            MemberOrderDTO theMemberOrder = new MemberOrderDTO();
             List<MemberOrderDTO> memberOrderList = new ArrayList<>();
 
             while(rs.next()) {
+                MemberOrderDTO theMemberOrder = new MemberOrderDTO();
+
                 theMemberOrder.setMemberOrderId(rs.getLong(1));
                 theMemberOrder.setSelectBread(rs.getInt(2));
                 theMemberOrder.setSelectCheese(rs.getInt(3));
@@ -299,8 +300,9 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
             conn = DBManager.getConnection();
             st = conn.createStatement();
             rs = st.executeQuery(sql);
-            MemberOrderDTO theMemberOrder = new MemberOrderDTO();
             while(rs.next()) {
+                MemberOrderDTO theMemberOrder = new MemberOrderDTO();
+
                 theMemberOrder.setMemberOrderId(rs.getLong(1));
                 theMemberOrder.setSelectBread(rs.getInt(2));
                 theMemberOrder.setSelectCheese(rs.getInt(3));
@@ -335,9 +337,10 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
             conn = DBManager.getConnection();
             st = conn.createStatement();
             rs = st.executeQuery(sql);
-            MemberOrderDTO theMemberOrder = new MemberOrderDTO();
 
             while(rs.next()) {
+                MemberOrderDTO theMemberOrder = new MemberOrderDTO();
+
                 theMemberOrder.setMemberOrderId(rs.getLong(1));
                 theMemberOrder.setSelectBread(rs.getInt(2));
                 theMemberOrder.setSelectCheese(rs.getInt(3));

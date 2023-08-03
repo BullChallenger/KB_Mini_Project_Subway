@@ -76,9 +76,10 @@ public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDT
             conn = DBManager.getConnection();
             st = conn.createStatement();
             rs = st.executeQuery(sql);
-            AnonymousOrderDTO theAnonymousOrder = new AnonymousOrderDTO();
 
             while(rs.next()) {
+                AnonymousOrderDTO theAnonymousOrder = new AnonymousOrderDTO();
+
                 theAnonymousOrder.setAnonymousOrderId(rs.getLong(1));
                 theAnonymousOrder.setOrderDate(rs.getString(2));
                 theAnonymousOrder.setMenuId(rs.getLong(3));
@@ -163,9 +164,10 @@ public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDT
             conn = DBManager.getConnection();
             st = conn.createStatement();
             rs = st.executeQuery(sql);
-            AnonymousOrderDTO theAnonymousOrder = new AnonymousOrderDTO();
 
             while(rs.next()) {
+                AnonymousOrderDTO theAnonymousOrder = new AnonymousOrderDTO();
+
                 theAnonymousOrder.setAnonymousOrderId(rs.getLong(1));
                 theAnonymousOrder.setOrderDate(rs.getString(2));
                 theAnonymousOrder.setMenuId(rs.getLong(3));
