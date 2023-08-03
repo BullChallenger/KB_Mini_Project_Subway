@@ -13,10 +13,10 @@ public class AdminController {
         }
     }
 
-//    public class list getStock(){
-//        List<IngredientDTO> list=IngredientDAOImpl.getInstance().findAll();
+//    public class List<IngredientDTO> list getStock(){
+//        List<IngredientDTO> list= AdminServiceImpl.getInstance().findAllIngredient();
 //        if(list.size()>0){
-//            service.impl.AdminServiceImpl
+//            return list;
 //        }else{
 //            FailView.errorMessage("재고 항목이 존재하지 않습니다.");
 //        }

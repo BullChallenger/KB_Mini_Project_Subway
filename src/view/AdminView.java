@@ -36,7 +36,7 @@ public class AdminView {
                         manageOrder();
                         break;
                     case 2:
-                        viewStockCrud();
+//                        viewStockCrud();
                         manageStore();
                         break;
                     case 3:
@@ -90,7 +90,7 @@ public class AdminView {
      * - 재료 메뉴 레시피 CRUD
      */
     public static void manageStore() {
-
+//        AdminController.
     }
 
     /**
