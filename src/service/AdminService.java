@@ -127,7 +127,7 @@ public interface AdminService {
      * @param price
      * @return
      */
-    MenuDTO updatePriceByMenuId(Long menuId, int price);
+    int updatePriceByMenuId(Long menuId, int price);
 
     /**
      * @method updatePriceByMenuName : DB에 저장된 메뉴의 가격을 이름을 통해 갱신
@@ -135,7 +135,7 @@ public interface AdminService {
      * @param price
      * @return
      */
-    MenuDTO updatePriceByMenuName(String menuName, int price);
+    int updatePriceByMenuName(String menuName, int price);
 
     /**
      * @method deleteByMenuId : id를 통해 DB에 저장된 메뉴를 삭제
