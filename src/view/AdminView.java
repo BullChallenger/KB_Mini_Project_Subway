@@ -36,6 +36,7 @@ public class AdminView {
                         manageOrder();
                         break;
                     case 2:
+                        System.out.print("재고목록");
                         manageStore();
                         break;
                     case 3:
