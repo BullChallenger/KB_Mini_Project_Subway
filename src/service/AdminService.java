@@ -178,4 +178,6 @@ public interface AdminService {
      * @return
      */
     List<ComposeDTO> findComposeByIngredientId(Long ingredientId);
+
+    void deleteComposeByMenu
 }
