@@ -107,9 +107,10 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
             conn = DBManager.getConnection();
             st = conn.createStatement();
             rs = st.executeQuery(sql);
-            MemberDTO theMember = new MemberDTO();
 
             while(rs.next()) {
+                MemberDTO theMember = new MemberDTO();
+
                 theMember.setMemberId(rs.getLong(1));
                 theMember.setMemberName(rs.getString(2));
                 theMember.setPhoneNumber(rs.getString(3));
@@ -209,7 +210,7 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
         Connection conn = null;
         Statement st = null;
         ResultSet rs = null;
-        String sql = "SELECT MEMBER_ID, MEMEBER_NAME, PHONE_NUMBER, POINT FROM MEMBER WHERE PHONE_NUMBER LIKE '" + phoneNumber + "'";
+        String sql = "SELECT MEMBER_ID, MEMBER_NAME, PHONE_NUMBER, POINT FROM MEMBER WHERE PHONE_NUMBER LIKE '" + phoneNumber + "'";
         MemberDTO theMember = new MemberDTO();
 
         try {
