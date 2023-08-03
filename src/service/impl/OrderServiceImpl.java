@@ -4,6 +4,7 @@ import dao.MemberOrderDAO;
 import dto.AnonymousOrderDTO;
 import dto.IngredientDTO;
 import dto.MemberOrderDTO;
+import dto.MenuDTO;
 import service.OrderService;
 
 import java.util.List;
@@ -65,6 +66,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<AnonymousOrderDTO> findAnonymousOrderByMenuId(Long menuId) {
+        return null;
+    }
+
+    @Override
+    public List<MenuDTO> findAllMenu() {
         return null;
     }
 
