@@ -8,6 +8,8 @@ import dto.MemberOrderDTO;
 import dto.MenuDTO;
 import service.OrderService;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
@@ -82,7 +84,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<IngredientDTO> findIngredientByIngredientCategory(int ingredientCategory) {
-        return null;
+        Iterable ingredientList = ingredientDAO.findByIngredientCategory(ingredientCategory);
+        ArrayList<IngredientDTO> list = new ArrayList<>();
+        for (Object o : ingredientList) {
+            list.add((IngredientDTO) o);
+        }
+        return list;
     }
 
     @Override
