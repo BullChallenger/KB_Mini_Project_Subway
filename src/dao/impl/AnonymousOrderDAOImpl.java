@@ -6,27 +6,25 @@ import dto.AnonymousOrderDTO;
 import dto.MemberDTO;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDTO, Long> {
 
-    @Override
-    public Long countByAnonymousOrderDate(String AnonymousOrderDate) {
-        return null;
+    private static final AnonymousOrderDAOImpl instance = new AnonymousOrderDAOImpl();
+
+    private AnonymousOrderDAOImpl(){
     }
 
-    @Override
-    public Long countByMenuId(String AnonymousOrderDate) {
-        return null;
-    }
+    public static AnonymousOrderDAOImpl getInstance() {return instance;}
 
     @Override
-    public List<AnonymousOrderDTO> findByMenuId(Long menuId) {
+    public Long countByAnonymousOrderDate(String anonymousOrderDate) {
+
         Connection conn = null;
         Statement st = null;
         ResultSet rs = null;
-        String sql = "SELECT ANA FROM ANANYMOUSORDER WHERE MEMBER_ID = " + menuId;
-        MemberDTO theMember = new MemberDTO();
+        String sql = "SELECT COUNT(*) FROM ANANYMOUSORDER WHERE ORDER_DATE LIKE '" + anonymousOrderDate + "'";
 
         try {
             conn = DBManager.getConnection();
@@ -34,12 +32,62 @@ public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDT
             rs = st.executeQuery(sql);
             rs.next();
 
-            theMember.setMemberId(rs.getLong(1));
-            theMember.setMemberName(rs.getString(2));
-            theMember.setPhoneNumber(rs.getString(3));
-            theMember.setPoint(rs.getInt(4));
+            return rs.getLong(1);
+        }catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, st, rs);
+        }
+    }
 
-            return theMember;
+    @Override
+    public Long countByMenuId(Long menuId) {
+        Connection conn = null;
+        Statement st = null;
+        ResultSet rs = null;
+        String sql = "SELECT COUNT(*) FROM ANANYMOUSORDER WHERE MENU_ID = " + menuId;
+
+        try {
+            conn = DBManager.getConnection();
+            st = conn.createStatement();
+            rs = st.executeQuery(sql);
+            rs.next();
+
+            return rs.getLong(1);
+        }catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, st, rs);
+        }
+    }
+
+    @Override
+    public List<AnonymousOrderDTO> findByMenuId(Long menuId) {
+        Connection conn = null;
+        Statement st = null;
+        ResultSet rs = null;
+        String sql = "SELECT ANANYMOUS_ORDER_ID, ORDER_DATE, MENU_ID, ORDER_STATUS FROM ANANYMOUSORDER " +
+                     "WHERE MENU_ID = " + menuId;
+        List<AnonymousOrderDTO> anonymousOrderList = new ArrayList<>();
+
+        try {
+            conn = DBManager.getConnection();
+            st = conn.createStatement();
+            rs = st.executeQuery(sql);
+            AnonymousOrderDTO theAnonymousOrder = new AnonymousOrderDTO();
+
+            while(rs.next()) {
+                theAnonymousOrder.setAnonymousOrderId(rs.getLong(1));
+                theAnonymousOrder.setOrderDate(rs.getString(2));
+                theAnonymousOrder.setMenuId(rs.getLong(3));
+                theAnonymousOrder.setOrderStatus(rs.getString(4).charAt(0));
+
+                anonymousOrderList.add(theAnonymousOrder);
+            }
+
+            return anonymousOrderList;
         }catch (SQLException e) {
             throw new RuntimeException();
         }finally {
@@ -48,10 +96,15 @@ public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDT
     }
 
     @Override
+    public List<AnonymousOrderDTO> findByAnonymousOrderId(Long anonymousorderId) {
+        return null;
+    }
+
+    @Override
     public <S extends AnonymousOrderDTO> S save(S dto) {
         Connection conn = null;
         PreparedStatement pstm = null;
-        String sql = "INSERT INTO ANANYMOUSORDER(MENU_ID, PHONE_NUMBER) VALUES(?, ?)";
+        String sql = "INSERT INTO ANANYMOUSORDER(MENU_ID, ORDER_STATUS) VALUES(?, ?)";
 
         try {
             conn = DBManager.getConnection();
@@ -71,36 +124,136 @@ public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDT
 
     @Override
     public <S extends AnonymousOrderDTO> S update(S dto) {
-        return null;
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        String sql = "UPDATE ANANYMOUSORDER SET ORDER_STATUS = ? WHERE ANANYMOUS_ORDER_ID = ?";
+
+        try {
+            conn = DBManager.getConnection();
+            pstm = conn.prepareStatement(sql);
+
+            pstm.setString(1, String.valueOf(dto.getOrderStatus()));
+            pstm.setLong(2, dto.getAnonymousOrderId());
+            pstm.executeUpdate();
+
+            return dto;
+        }catch (SQLException e) {
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, pstm);
+        }
     }
 
     @Override
-    public AnonymousOrderDTO findById(Long aLong) {
+    @Deprecated
+    public AnonymousOrderDTO findById(Long anonymousOrderId) {
         return null;
     }
 
     @Override
     public Iterable<AnonymousOrderDTO> findAll() {
-        return null;
+        Connection conn = null;
+        Statement st = null;
+        ResultSet rs = null;
+        String sql = "SELECT ANANYMOUS_ORDER_ID, ORDER_DATE, MENU_ID, ORDER_STATUS FROM ANANYMOUSORDER";
+
+        List<AnonymousOrderDTO> anonymousOrderList = new ArrayList<>();
+
+        try {
+            conn = DBManager.getConnection();
+            st = conn.createStatement();
+            rs = st.executeQuery(sql);
+            AnonymousOrderDTO theAnonymousOrder = new AnonymousOrderDTO();
+
+            while(rs.next()) {
+                theAnonymousOrder.setAnonymousOrderId(rs.getLong(1));
+                theAnonymousOrder.setOrderDate(rs.getString(2));
+                theAnonymousOrder.setMenuId(rs.getLong(3));
+                theAnonymousOrder.setOrderStatus(rs.getString(4).charAt(0));
+
+                anonymousOrderList.add(theAnonymousOrder);
+            }
+
+            return anonymousOrderList;
+        }catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, st, rs);
+        }
     }
 
     @Override
     public long count() {
-        return 0;
+        Connection conn = null;
+        Statement st = null;
+        ResultSet rs = null;
+        String sql = "SELECT COUNT(*) FROM ANANYMOUSORDER";
+
+        try {
+            conn = DBManager.getConnection();
+            st = conn.createStatement();
+            rs = st.executeQuery(sql);
+            rs.next();
+
+            return rs.getLong(1);
+        }catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, st, rs);
+        }
     }
 
     @Override
-    public void deleteById(Long aLong) {
+    public void deleteById(Long anonymousOrderId) {
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        String sql = "DELETE FROM ANANYMOUSORDER WHERE ANANYMOUS_ORDER_ID = " + anonymousOrderId;
 
+        try {
+            conn = DBManager.getConnection();
+            pstm = conn.prepareStatement(sql);
+
+            pstm.executeUpdate();
+        }catch (SQLException e) {
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, pstm);
+        }
     }
 
     @Override
     public void delete(AnonymousOrderDTO dto) {
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        String sql = "DELETE FROM MEMBER WHERE ANANYMOUS_ORDER_ID = ?";
 
+        try {
+            conn = DBManager.getConnection();
+            pstm = conn.prepareStatement(sql);
+
+            pstm.setLong(1, dto.getAnonymousOrderId());
+        }catch (SQLException e) {
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, pstm);
+        }
     }
 
     @Override
     public void deleteAll() {
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        String sql = "DELETE FROM ANANYMOUSORDER";
 
+        try {
+            conn = DBManager.getConnection();
+            pstm = conn.prepareStatement(sql);
+        }catch (SQLException e) {
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, pstm);
+        }
     }
 }
