@@ -209,7 +209,7 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
         Connection conn = null;
         Statement st = null;
         ResultSet rs = null;
-        String sql = "SELECT MEMBER_ID, MEMBER_NAME, PHONE_NUMBER, POINT FROM MEMBER WHERE PHONE_NUMBER LIKE '" + phoneNumber + "'";
+        String sql = "SELECT MEMBER_ID, MEMEBER_NAME, PHONE_NUMBER, POINT FROM MEMBER WHERE PHONE_NUMBER LIKE '" + phoneNumber + "'";
         MemberDTO theMember = new MemberDTO();
 
         try {
