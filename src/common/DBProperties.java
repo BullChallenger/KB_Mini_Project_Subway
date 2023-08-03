@@ -5,11 +5,9 @@ package common;
 public interface DBProperties {
   public static final String DRVIER_NAME="oracle.jdbc.driver.OracleDriver";
    String URL="jdbc:oracle:thin:@localhost:1521:XE";
-<<<<<<< HEAD
-   String USER_ID="";
-   String USER_PASS="";
-=======
-   String USER_ID="Lagoon";
-   String USER_PASS="ROOK";
->>>>>>> ff887acc8aa7f679d7446665769dca3d0a3eedea
+
+   String USER_ID="WONSIK";
+   String USER_PASS="6641";
+
+
 }
