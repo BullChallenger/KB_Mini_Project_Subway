@@ -54,6 +54,7 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
 
             pstm.setString(1, dto.getMemberName());
             pstm.setString(2, dto.getPhoneNumber());
+            pstm.setLong(3, dto.getMemberId());
             pstm.executeUpdate();
 
             return dto;

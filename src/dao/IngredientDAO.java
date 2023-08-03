@@ -9,7 +9,7 @@ public interface IngredientDAO<IngredientDTO, Long> extends BaseDAO<IngredientDT
      * @param ingredientCategory
      * @return Iterable<IngredientDTO>
      */
-    Iterable<IngredientDTO> findByIngredientCategory(String ingredientCategory);
+    Iterable<IngredientDTO> findByIngredientCategory(int ingredientCategory);
 
     /**
 

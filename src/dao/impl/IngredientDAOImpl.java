@@ -212,7 +212,7 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
 
 
     @Override
-    public Iterable<IngredientDTO> findByIngredientCategory(String ingredientCategory) {
+    public Iterable<IngredientDTO> findByIngredientCategory(int ingredientCategory) {
         Connection conn = null;
         Statement st = null;
         ResultSet rs = null;
@@ -244,6 +244,8 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
             DBManager.releaseConnection(conn, st, rs);
         }
     }
+
+
 
     @Override
     public IngredientDTO findByIngredientName(String ingredientName) {
