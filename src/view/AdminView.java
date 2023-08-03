@@ -36,7 +36,7 @@ public class AdminView {
                         manageOrder();
                         break;
                     case 2:
-                        System.out.print("재고목록");
+                        viewStockCrud();
                         manageStore();
                         break;
                     case 3:
@@ -49,6 +49,36 @@ public class AdminView {
                 System.out.println("메뉴는 숫자만 가능합니다.");
             }
         }//while문
+    }
+
+    private static void viewStockCrud() {
+        while (true) {
+            System.out.println("\n----------------------------------------");
+            System.out.print("[ 1. 재고상태 조회   ");
+            System.out.print("2. 재고 업데이트   ");
+            System.out.print("3. 재고 삭제 ]");
+            System.out.println("\n--------------------------------------------");
+            try {
+                int menu = Integer.parseInt(sc.nextLine());//
+                switch (menu) {
+                    case 1:
+                        manageOrder();
+                        break;
+                    case 2:
+                        viewStockCrud();
+                        manageStore();
+                        break;
+                    case 3:
+                        System.out.println(" 로그아웃됩니다...");
+                        return;
+                    default:
+                        System.out.println("잘못되었습니다..다시 입력해주세요.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("요청을 처리할 수 없습니다.");
+            }
+        }
+
     }
 
     /**
