@@ -5,36 +5,42 @@ import controller.KioskController;
 
 import java.util.Scanner;
 
-public class MenuView {
+public class AdminView {
+
     static Scanner sc = new Scanner(System.in);
+    /**
+     * 관리자의 경우, 비밀번호 입력 후 관리자 메뉴로 이동
+     */
+    public static void getAdminPassword() {
+        System.out.println("관리자 비밀번호 입력");
+        String password = sc.nextLine();
+        AdminController.checkAdmin(password);
+    }
 
     /**
-     * 메뉴
+     * 관리자 설정 메뉴로 이동
      */
-    public static void menuChoice() {
+    public static void startSetting() {
+
         while (true) {
             System.out.println("\n----------------------------------------");
-            System.out.print("[ 1. 멤버십   ");
-            System.out.print("2. 비회원   ");
-            System.out.print("3. 관리자 로그인   ");
-            System.out.print("4. 종료 ]");
+            System.out.print("[ 1. 주문상태 조회   ");
+            System.out.print("2. 재고 관리   ");
+            System.out.print("3. 종료 ]");
             System.out.println("\n--------------------------------------------");
             System.out.println("선택메뉴는?");
             try {
                 int menu = Integer.parseInt(sc.nextLine());//
                 switch (menu) {
                     case 1:
-                        KioskView.getUserPhoneNumber();
+                        manageOrder();
                         break;
                     case 2:
-                        KioskView.startOrder(null);
+                        manageStore();
                         break;
                     case 3:
-                        AdminView.getAdminPassword();
-                        break;
-                    case 4:
                         System.out.println("다음에 다시 만나요~~^^ 로그아웃됩니다...");
-                        System.exit(0);
+                        return;
                     default:
                         System.out.println("잘못되었습니다..다시 입력해주세요.");
                 }
@@ -44,5 +50,21 @@ public class MenuView {
         }//while문
     }
 
+    /**
+     * 관리자의 매장 관리
+     * - 재료 메뉴 레시피 CRUD
+     */
+    public static void manageStore() {
+
+    }
+
+    /**
+     * 관리자의 주문관리
+     * -
+     */
+    public static void manageOrder() {
+        // 현재 미처리 주문 확인
+        KioskController.orderSelectByAll();
+    }
 
 }
