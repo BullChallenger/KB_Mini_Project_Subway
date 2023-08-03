@@ -21,4 +21,7 @@ public class MenuDTO {
     private int menuCalorie;
 
     private List<ComposeDTO> ingredients = new ArrayList<>();
+
+    public MenuDTO(long menuId, String menuName, int menuPrice, int menuCalorie) {
+    }
 }

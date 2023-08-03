@@ -11,14 +11,12 @@ public interface IngredientDAO<IngredientDTO, Long> extends BaseDAO<IngredientDT
      */
     Iterable<IngredientDTO> findByIngredientCategory(int ingredientCategory);
 
-    /**
-
 
     /**
      * @method findByIngredientName : 재료 이름을 통해 재료 검색
      * @param ingredientName
-     * @return IngredientDTO
-     * */
+     * @return Optional<IngredientDTO>
+     */
     IngredientDTO findByIngredientName(String ingredientName);
 
     /**

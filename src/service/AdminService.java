@@ -179,5 +179,23 @@ public interface AdminService {
      */
     List<ComposeDTO> findComposeByIngredientId(Long ingredientId);
 
+    /**
+     * @method deleteComposeByMenuId : 메뉴 id를 통해 구성 재료 삭제
+     * @param menuId
+     */
+    void deleteComposeByMenuId(Long menuId);
+
+    /**
+     * @method deleteComposeByIngredientId : 재료 id를 통해 구성 재료 삭제
+     * @param ingredientId
+     */
+    void deleteComposeByIngredientId(Long ingredientId);
+
+    /**
+     * @method deleteComposeByMenuIdAndIngredientId : 메뉴 id와 재료 id를 통해 구성 재료 삭제
+     * @param menuId
+     * @param ingredientId
+     */
+    void deleteComposeByMenuIdAndIngredientId(Long menuId, Long ingredientId);
 
 }
