@@ -1,6 +1,7 @@
 package service;
 
 import dto.AnonymousOrderDTO;
+import dto.IngredientDTO;
 import dto.MemberOrderDTO;
 
 import java.util.List;
@@ -31,4 +32,6 @@ public interface OrderService {
 
     List<AnonymousOrderDTO> findAnonymousOrderByMenuId(Long menuId);
 
+    /* Ingredient */
+    List<IngredientDTO> findIngredientByIngredientCategory(int ingredientCategory);
 }

@@ -2,6 +2,7 @@ package service.impl;
 
 import dao.MemberOrderDAO;
 import dto.AnonymousOrderDTO;
+import dto.IngredientDTO;
 import dto.MemberOrderDTO;
 import service.OrderService;
 
@@ -64,6 +65,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<AnonymousOrderDTO> findAnonymousOrderByMenuId(Long menuId) {
+        return null;
+    }
+
+    @Override
+    public List<IngredientDTO> findIngredientByIngredientCategory(int ingredientCategory) {
         return null;
     }
 }
