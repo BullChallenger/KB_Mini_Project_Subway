@@ -33,6 +33,7 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
             pstm.setString(1, dto.getMemberName());
             pstm.setString(2, dto.getPhoneNumber());
             pstm.executeUpdate();
+
             return dto;
         }catch (SQLException e) {
             throw new RuntimeException();
@@ -43,12 +44,51 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
 
     @Override
     public <S extends MemberDTO> S update(S dto) {
-        return null;
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        String sql = "UPDATE MEMBER SET MEMBER_NAME = ?, PHONE_NUMBER = ? WHERE MEMBER_ID = ?";
+
+        try {
+            conn = DBManager.getConnection();
+            pstm = conn.prepareStatement(sql);
+
+            pstm.setString(1, dto.getMemberName());
+            pstm.setString(2, dto.getPhoneNumber());
+            pstm.executeUpdate();
+
+            return dto;
+        }catch (SQLException e) {
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, pstm);
+        }
     }
 
     @Override
-    public MemberDTO findById(Long aLong) {
-        return null;
+    public MemberDTO findById(Long memberId) {
+        Connection conn = null;
+        Statement st = null;
+        ResultSet rs = null;
+        String sql = "SELECT MEMBER_ID, MEMBER_NAME, PHONE_NUMBER, POINT FROM MEMBER WHERE MEMBER_ID = " + memberId;
+        MemberDTO theMember = new MemberDTO();
+
+        try {
+            conn = DBManager.getConnection();
+            st = conn.createStatement();
+            rs = st.executeQuery(sql);
+            rs.next();
+
+            theMember.setMemberId(rs.getLong(1));
+            theMember.setMemberName(rs.getString(2));
+            theMember.setPhoneNumber(rs.getString(3));
+            theMember.setPoint(rs.getInt(4));
+
+            return theMember;
+        }catch (SQLException e) {
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, st, rs);
+        }
     }
 
     @Override
@@ -67,7 +107,7 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
             MemberDTO theMember = new MemberDTO();
 
             while(rs.next()) {
-                theMember.setMemberId((long) rs.getInt(1));
+                theMember.setMemberId(rs.getLong(1));
                 theMember.setMemberName(rs.getString(2));
                 theMember.setPhoneNumber(rs.getString(3));
                 theMember.setPoint(rs.getInt(4));
@@ -86,26 +126,102 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
 
     @Override
     public long count() {
-        return 0;
+        Connection conn = null;
+        Statement st = null;
+        ResultSet rs = null;
+        String sql = "SELECT COUNT(*) FROM MEMBER;";
+
+        try {
+            conn = DBManager.getConnection();
+            st = conn.createStatement();
+            rs = st.executeQuery(sql);
+            rs.next();
+
+            return rs.getLong(1);
+        }catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, st, rs);
+        }
     }
 
     @Override
-    public void deleteById(Long aLong) {
+    public void deleteById(Long memberId) {
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        String sql = "DELETE FROM MEMBER WHERE MEMBER_ID = " + memberId;
 
+        try {
+            conn = DBManager.getConnection();
+            pstm = conn.prepareStatement(sql);
+
+            pstm.executeUpdate();
+        }catch (SQLException e) {
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, pstm);
+        }
     }
 
     @Override
     public void delete(MemberDTO dto) {
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        String sql = "DELETE FROM MEMBER WHERE MEMBER_ID = ?";
 
+        try {
+            conn = DBManager.getConnection();
+            pstm = conn.prepareStatement(sql);
+
+            pstm.setLong(1, dto.getMemberId());
+        }catch (SQLException e) {
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, pstm);
+        }
     }
 
     @Override
     public void deleteAll() {
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        String sql = "DELETE FROM MEMBER";
 
+        try {
+            conn = DBManager.getConnection();
+            pstm = conn.prepareStatement(sql);
+        }catch (SQLException e) {
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, pstm);
+        }
     }
 
     @Override
     public MemberDTO findByPhoneNumber(String phoneNumber) {
-        return null;
+        Connection conn = null;
+        Statement st = null;
+        ResultSet rs = null;
+        String sql = "SELECT MEMBER_ID, MEMBER_NAME, PHONE_NUMBER, POINT FROM MEMBER WHERE PHONE = " + phoneNumber;
+        MemberDTO theMember = new MemberDTO();
+
+        try {
+            conn = DBManager.getConnection();
+            st = conn.createStatement();
+            rs = st.executeQuery(sql);
+            rs.next();
+
+            theMember.setMemberId(rs.getLong(1));
+            theMember.setMemberName(rs.getString(2));
+            theMember.setPhoneNumber(rs.getString(3));
+            theMember.setPoint(rs.getInt(4));
+
+            return theMember;
+        }catch (SQLException e) {
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, st, rs);
+        }
     }
 }

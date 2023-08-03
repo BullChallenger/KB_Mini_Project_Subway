@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface MemberService {
 
-    MemberDTO save();
+    MemberDTO save(MemberDTO dto);
 
     MemberDTO update(MemberDTO dto);
 
@@ -17,6 +17,6 @@ public interface MemberService {
     MemberDTO findByPhoneNumber(String phoneNumber);
 
     void deleteByMemberId(Long memberId);
-    
+
     void delete(MemberDTO dto);
 }
