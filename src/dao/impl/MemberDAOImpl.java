@@ -203,7 +203,7 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
         Connection conn = null;
         Statement st = null;
         ResultSet rs = null;
-        String sql = "SELECT MEMBER_ID, MEMBER_NAME, PHONE_NUMBER, POINT FROM MEMBER WHERE PHONE = " + phoneNumber;
+        String sql = "SELECT MEMBER_ID, MEMBER_NAME, PHONE_NUMBER, POINT FROM MEMBER WHERE PHONE_NUMBER LIKE '" + phoneNumber + "'";
         MemberDTO theMember = new MemberDTO();
 
         try {
@@ -219,6 +219,7 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
 
             return theMember;
         }catch (SQLException e) {
+            e.printStackTrace();
             throw new RuntimeException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
