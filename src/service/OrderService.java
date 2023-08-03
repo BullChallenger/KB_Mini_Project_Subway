@@ -44,4 +44,6 @@ public interface OrderService {
     MenuDTO findMenuByMenuId(Long id);
 
     int updateOrderStatusByMemberOrderId(Long id);
+
+    MemberOrderDTO findHistoryByMemberMenuId(Long memberId, Long menuId);
 }
