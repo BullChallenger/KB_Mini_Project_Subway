@@ -68,8 +68,84 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
         } finally {
             DBManager.releaseConnection(con, ps);
         }
+    }
 
+    @Override
+    public int updatePriceByMenuId(Long menuId, int price) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        int result = 0;
 
+        String sql = "UPDATE MENU SET PRICE=? WHERE MENU_ID = ?";
+        try {
+            con = DBManager.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1,price);
+            ps.setLong(2,menuId);
+            result=ps.executeUpdate();
+
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DBManager.releaseConnection(con, ps);
+        }
+    }
+
+    @Override
+    public int updatePriceByMenuName(String menuName, int price) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        int result = 0;
+
+        String sql = "UPDATE MENU SET PRICE=? WHERE MENU_NAME = ?";
+        try {
+            con = DBManager.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1,price);
+            ps.setString(2,menuName);
+            result=ps.executeUpdate();
+
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DBManager.releaseConnection(con, ps);
+        }
+    }
+
+    /**
+     * @method 메뉴 이름기반으로 메뉴 검색
+     * @param menuName
+     * @return
+     */
+    @Override
+    public MenuDTO findMenuByMenuName(String menuName) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs=null;
+
+        String sql="SELECT * FROM MENU WHERE MENU_NAME = ?";
+        try {
+            con = DBManager.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, menuName);
+            rs=ps.executeQuery();
+            MenuDTO dto=null;
+
+            while(rs.next()){
+                //객체에 메뉴 아이디에 해당하는 정보 저장
+                dto = new MenuDTO(rs.getLong("menu_id"),rs.getString("menu_name"),
+                        rs.getInt("menu_price"),rs.getInt("menu_calorie"));
+            }
+
+            return dto;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DBManager.releaseConnection(con, ps);
+        }
     }
 
     /**
@@ -215,6 +291,24 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);
             result= ps.executeUpdate();
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }finally{
+            DBManager.releaseConnection(con, ps);
+        }
+    }
+
+    @Override
+    public void deleteByMenuName(String menuName) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        String sql="DELETE FROM MENU WHERE MENU_NAME=?";
+
+        try {
+            con = DBManager.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, menuName);
+
         }catch(SQLException e){
             throw new RuntimeException(e);
         }finally{
