@@ -79,12 +79,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<MenuDTO> findAllMenu() {
-        return null;
+    public List<MenuDTO> findAllMenu() throws RuntimeException {
+        Iterable all = menuDAO.findAll();
+        ArrayList<MenuDTO> list = new ArrayList<>();
+        for (Object o : all) {
+            list.add((MenuDTO) o);
+        }
+        return list;
     }
 
     @Override
-    public List<IngredientDTO> findIngredientByIngredientCategory(int ingredientCategory) {
+    public List<IngredientDTO> findIngredientByIngredientCategory(int ingredientCategory) throws RuntimeException{
         Iterable ingredientList = ingredientDAO.findByIngredientCategory(ingredientCategory);
         ArrayList<IngredientDTO> list = new ArrayList<>();
         for (Object o : ingredientList) {
@@ -94,7 +99,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<MemberOrderDTO> findAllOrderInfo() {
+    public List<MemberOrderDTO> findAllOrderInfo() throws RuntimeException{
         Iterable orderDAOAll = memberOrderDAO.findAll();
         ArrayList<MemberOrderDTO> list = new ArrayList<>();
         for (Object o : orderDAOAll) {
@@ -104,7 +109,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public MenuDTO findMenuByMenuId(Long id) {
-        return null;
+    public MenuDTO findMenuByMenuId(Long id) throws RuntimeException{
+        MenuDTO menuDTO = (MenuDTO) menuDAO.findById(id);
+        return menuDTO;
     }
 }

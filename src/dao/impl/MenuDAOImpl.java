@@ -14,6 +14,11 @@ import java.util.ArrayList;
  * 신메뉴 삽입 수행
  **/
 public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
+
+    private static final MenuDAOImpl instance = new MenuDAOImpl();
+    private MenuDAOImpl(){}
+    public static MenuDAOImpl getInstance() {return instance;}
+
     @Override
     public <S extends MenuDTO> S save(S dto) {
         Connection con=null;
