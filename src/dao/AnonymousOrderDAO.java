@@ -4,11 +4,13 @@ import dto.AnonymousOrderDTO;
 
 import java.util.List;
 
-public interface AnonymousOrderDAO extends BaseDAO<AnonymousOrderDTO, Long> {
+public interface AnonymousOrderDAO<AnonymousOrderDTO, Long> extends BaseDAO<AnonymousOrderDTO, Long> {
 
     Long countByAnonymousOrderDate(String AnonymousOrderDate);
 
-    Long countByMenuId(String AnonymousOrderDate);
+    Long countByMenuId(Long menuId);
 
     List<AnonymousOrderDTO> findByMenuId(Long menuId);
+
+    List<AnonymousOrderDTO> findByAnonymousOrderId(Long anonymousorderId);
 }

@@ -14,4 +14,6 @@ public class AnonymousOrderDTO {
     private String orderDate;
 
     private Long menuId;
+
+    private char orderStatus;
 }

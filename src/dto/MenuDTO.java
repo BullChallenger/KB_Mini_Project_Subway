@@ -9,7 +9,6 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
 public class MenuDTO {
 
     private Long menuId;
@@ -21,4 +20,13 @@ public class MenuDTO {
     private int menuCalorie;
 
     private List<ComposeDTO> ingredients = new ArrayList<>();
+
+    public MenuDTO(Long menuId, String menuName, int menuPrice, int menuCalorie) {
+        this.menuId = menuId;
+        this.menuName = menuName;
+        this.menuPrice = menuPrice;
+        this.menuCalorie = menuCalorie;
+    }
 }
+
+

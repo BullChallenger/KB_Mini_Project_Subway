@@ -13,7 +13,7 @@ public class DBManager {
 	 */
 	static {
 		try {
-		  Class.forName(DBProperties.DRVIER_NAME);
+		  Class.forName(DBProperties.DRIVER_NAME);
 		}catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
