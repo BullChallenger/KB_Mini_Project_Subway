@@ -16,6 +16,13 @@ public class AdminServiceImpl implements AdminService {
     private static final IngredientDAO ingredientDAO = IngredientDAOImpl.getInstance();
     private static final MenuDAO menuDAO = MenuDAOImpl.getInstance();
 
+    //get instance 생성
+    private static final AdminServiceImpl instance = new AdminServiceImpl();
+
+    private AdminServiceImpl() {}
+
+    public static AdminServiceImpl getInstance() {return instance;}
+
     @Override
     public IngredientDTO saveIngredient(IngredientDTO dto) {
         try {
