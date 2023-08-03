@@ -1,6 +1,7 @@
 package view;
 
 import controller.KioskController;
+import dto.MemberDTO;
 import vo.OrderVo;
 
 import java.util.Scanner;
@@ -20,8 +21,7 @@ public class KioskView {
         KioskController.checkMember(memberPhoneNumber);
     }
 
-    public static void startOrder(String memberPhoneNumber) {
-
+    public static void startOrder(MemberDTO dto) {
         while (true) {
             System.out.println("\n----------------------------------------");
             System.out.print("[ 1. 주문하기   ");
@@ -35,6 +35,7 @@ public class KioskView {
                     case 1:
 
                         OrderVo vo = new OrderVo();
+                        OrderVo printVo = new OrderVo();
 
                         // 1-1 메뉴 전체 조회 후 출력
                         KioskController.menuSelectByAll();
@@ -42,6 +43,9 @@ public class KioskView {
                         // 1-2 사용자 메뉴 입력 받기
                         int userSelectMenu = Integer.parseInt(sc.nextLine());//
                         vo.setMenuId(userSelectMenu);
+
+
+                        KioskController.getMemberOrderHistory(dto.getMemberId(), (long) menu);
 
                         // 2-1 빵 전체 조회 후 출력 및, 이전 히스토리가 있다면? 이전에 선택한 선택지 출력
                         KioskController.breadSelectByAll();

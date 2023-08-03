@@ -44,6 +44,7 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
 
     @Override
     public <S extends MemberDTO> S update(S dto) {
+
         Connection conn = null;
         PreparedStatement pstm = null;
         String sql = "UPDATE MEMBER SET MEMBER_NAME = ?, PHONE_NUMBER = ? WHERE MEMBER_ID = ?";
@@ -94,6 +95,7 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
 
     @Override
     public Iterable<MemberDTO> findAll() {
+
         Connection conn = null;
         Statement st = null;
         ResultSet rs = null;
@@ -127,6 +129,7 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
 
     @Override
     public long count() {
+
         Connection conn = null;
         Statement st = null;
         ResultSet rs = null;
@@ -185,6 +188,7 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
 
     @Override
     public void deleteAll() {
+
         Connection conn = null;
         PreparedStatement pstm = null;
         String sql = "DELETE FROM MEMBER";
@@ -201,6 +205,7 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
 
     @Override
     public MemberDTO findByPhoneNumber(String phoneNumber) {
+
         Connection conn = null;
         Statement st = null;
         ResultSet rs = null;

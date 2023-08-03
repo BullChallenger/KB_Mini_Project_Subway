@@ -3,7 +3,6 @@ package dao;
 import dto.MemberDTO;
 
 public interface MemberDAO<MemberDTO, Long> extends BaseDAO<MemberDTO, Long> {
-
     /**
      * 핸드폰 번호를 통해 회원 정보 조회
      * @method findByPhoneNumber
