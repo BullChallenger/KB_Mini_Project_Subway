@@ -113,7 +113,8 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
         Connection conn = null;
         Statement st = null;
         ResultSet rs = null;
-        String sql = "SELECT MEMBERORDERID, SELECT_BREAD , SELECT_CHEESE , SELECT_ADDITIONALMENU , EXCLUDE_VEGETABLE , SELECT_SOURCE , ORDER_DATE , MENU_ID , MEMBER_ID , ORDER_STATUS FROM MEMBERORDER";
+        String sql = "SELECT MEMBERORDERID, SELECT_BREAD , SELECT_CHEESE , SELECT_ADDITIONALMENU , EXCLUDE_VEGETABLE , SELECT_SOURCE , ORDER_DATE , MENU_ID , MEMBER_ID , ORDER_STATUS FROM MEMBERORDER " +
+                     "WHERE ORDER_STATUS = 'N'";
 
 
 
@@ -121,10 +122,11 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
             conn = DBManager.getConnection();
             st = conn.createStatement();
             rs = st.executeQuery(sql);
-            MemberOrderDTO theMemberOrder = new MemberOrderDTO();
             List<MemberOrderDTO> memberOrderList = new ArrayList<>();
 
             while(rs.next()) {
+                MemberOrderDTO theMemberOrder = new MemberOrderDTO();
+
                 theMemberOrder.setMemberOrderId(rs.getLong(1));
                 theMemberOrder.setSelectBread(rs.getInt(2));
                 theMemberOrder.setSelectCheese(rs.getInt(3));
@@ -299,8 +301,9 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
             conn = DBManager.getConnection();
             st = conn.createStatement();
             rs = st.executeQuery(sql);
-            MemberOrderDTO theMemberOrder = new MemberOrderDTO();
             while(rs.next()) {
+                MemberOrderDTO theMemberOrder = new MemberOrderDTO();
+
                 theMemberOrder.setMemberOrderId(rs.getLong(1));
                 theMemberOrder.setSelectBread(rs.getInt(2));
                 theMemberOrder.setSelectCheese(rs.getInt(3));
@@ -335,9 +338,10 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
             conn = DBManager.getConnection();
             st = conn.createStatement();
             rs = st.executeQuery(sql);
-            MemberOrderDTO theMemberOrder = new MemberOrderDTO();
 
             while(rs.next()) {
+                MemberOrderDTO theMemberOrder = new MemberOrderDTO();
+
                 theMemberOrder.setMemberOrderId(rs.getLong(1));
                 theMemberOrder.setSelectBread(rs.getInt(2));
                 theMemberOrder.setSelectCheese(rs.getInt(3));
@@ -391,6 +395,25 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
             throw new RuntimeException();
         } finally {
             DBManager.releaseConnection(conn, st, rs);
+        }
+    }
+
+    @Override
+    public int updateOrderStatusByMemberOrderId(Long memberOrderId) {
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        String sql = "UPDATE MEMBERORDER SET ORDER_STATUS = 'Y' WHERE MEMBERORDERID = " + memberOrderId;
+        MemberOrderDTO theMemberOrder = new MemberOrderDTO();
+
+        try {
+            conn = DBManager.getConnection();
+            pstm = conn.prepareStatement(sql);
+
+            return pstm.executeUpdate();
+        }catch (SQLException e) {
+            throw new RuntimeException();
+        }finally {
+            DBManager.releaseConnection(conn, pstm);
         }
     }
 }

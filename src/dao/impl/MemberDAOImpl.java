@@ -107,9 +107,10 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
             conn = DBManager.getConnection();
             st = conn.createStatement();
             rs = st.executeQuery(sql);
-            MemberDTO theMember = new MemberDTO();
 
             while(rs.next()) {
+                MemberDTO theMember = new MemberDTO();
+
                 theMember.setMemberId(rs.getLong(1));
                 theMember.setMemberName(rs.getString(2));
                 theMember.setPhoneNumber(rs.getString(3));

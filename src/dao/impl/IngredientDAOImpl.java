@@ -112,9 +112,10 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
             conn = DBManager.getConnection();
             st = conn.createStatement();
             rs = st.executeQuery(sql);
-            IngredientDTO theIngredient = new IngredientDTO();
 
             while(rs.next()) {
+                IngredientDTO theIngredient = new IngredientDTO();
+
                 theIngredient.setIngredientId(rs.getLong(1));
                 theIngredient.setIngredientName(rs.getString(2));
                 theIngredient.setStock(rs.getInt(3));
@@ -217,7 +218,7 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
         Statement st = null;
         ResultSet rs = null;
         String sql = "SELECT INGREDIENT_ID, INGREDIENT_NAME, STOCK, INGREDIENT_PRICE, INGREDIENT_CALORIE, INGREDIENT_CATEGORY FROM INGREDIENT WHERE INGREDIENT_CATEGORY = " + ingredientCategory;
-        IngredientDTO theIngredient = new IngredientDTO();
+
         List<IngredientDTO> ingredientList = new ArrayList<>();
 
         try {
@@ -226,6 +227,8 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
             rs = st.executeQuery(sql);
 
             while(rs.next()) {
+                IngredientDTO theIngredient = new IngredientDTO();
+
                 theIngredient.setIngredientId(rs.getLong(1));
                 theIngredient.setIngredientName(rs.getString(2));
                 theIngredient.setStock(rs.getInt(3));
