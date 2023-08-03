@@ -159,7 +159,7 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
         PreparedStatement ps = null;
         ResultSet rs=null;
 
-        String sql="SELECT * FROM MENU WHERE MENUID=?";
+        String sql="SELECT * FROM MENU WHERE MENU_ID=?";
         try {
             con = DBManager.getConnection();
             ps = con.prepareStatement(sql);

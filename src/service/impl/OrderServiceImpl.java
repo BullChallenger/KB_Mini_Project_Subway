@@ -81,9 +81,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<MenuDTO> findAllMenu() throws RuntimeException {
         List<MenuDTO> all = (List<MenuDTO>) menuDAO.findAll();
-        for (MenuDTO o : all) {
-            System.out.println(o);
-        }
         return all;
     }
 
@@ -99,12 +96,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<MemberOrderDTO> findAllOrderInfo() throws RuntimeException{
-        Iterable orderDAOAll = memberOrderDAO.findAll();
-        ArrayList<MemberOrderDTO> list = new ArrayList<>();
-        for (Object o : orderDAOAll) {
-            list.add((MemberOrderDTO) o);
-        }
-        return list;
+        List<MemberOrderDTO> orderDAOAll = (List<MemberOrderDTO>) memberOrderDAO.findAll();
+        return orderDAOAll;
     }
 
     @Override

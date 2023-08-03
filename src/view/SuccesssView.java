@@ -10,15 +10,19 @@ import java.util.List;
 public class SuccesssView {
 
     public static void printSelect(List<IngredientDTO> ingredientDTOS) {
-        for (IngredientDTO ingredientDTO : ingredientDTOS) {
-            System.out.println(ingredientDTO.getIngredientName());
+        int cnt = 1;
+        for (int i = 0; i < ingredientDTOS.size(); ++i) {
+            System.out.print("\t"+(cnt++)+": "+ingredientDTOS.get(i).getIngredientName()+"\t|");
         }
+        System.out.println();
     }
 
     public static void printAllMenu(List<MenuDTO> allMenu) {
-        for (MenuDTO menu : allMenu) {
-            System.out.println(menu.getMenuName());
+        int cnt = 1;
+        for (int i = 0; i < allMenu.size(); ++i) {
+            System.out.print("\t"+(cnt++)+": "+allMenu.get(i).getMenuName()+"\t|");
         }
+        System.out.println();
     }
 
     public static void printOrderStatus(List<MemberOrderDTO> allOrderInfo) {
@@ -32,6 +36,11 @@ public class SuccesssView {
         for (MenuDTO menuDTO : cart) {
             System.out.println("menuDTO.getMenuName() = " + menuDTO.getMenuName());
         }
+
+    }
+
+    public static void printMessageOrderSuccess(String message) {
+        System.out.println(message);
 
     }
 }
