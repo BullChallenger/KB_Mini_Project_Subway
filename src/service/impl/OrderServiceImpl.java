@@ -80,12 +80,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<MenuDTO> findAllMenu() throws RuntimeException {
-        Iterable all = menuDAO.findAll();
-        ArrayList<MenuDTO> list = new ArrayList<>();
-        for (Object o : all) {
-            list.add((MenuDTO) o);
+        List<MenuDTO> all = (List<MenuDTO>) menuDAO.findAll();
+        for (MenuDTO o : all) {
+            System.out.println(o);
         }
-        return list;
+        return all;
     }
 
     @Override
