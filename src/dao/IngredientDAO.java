@@ -2,14 +2,22 @@ package dao;
 
 import dto.IngredientDTO;
 
+<<<<<<< HEAD
+public interface IngredientDAO extends BaseDAO<IngredientDTO, Long> {
+=======
 public interface IngredientDAO<IngredientDTO, Long> extends BaseDAO<IngredientDTO, Long> {
+>>>>>>> ff887acc8aa7f679d7446665769dca3d0a3eedea
 
     /**
      * @method findByIngredientCategory : 재료 카테고리 별로 재료 정보 검색
      * @param ingredientCategory
      * @return Iterable<IngredientDTO>
      */
+<<<<<<< HEAD
+    Iterable<IngredientDTO> findByIngredientCategory(String ingredientCategory);
+=======
     Iterable<IngredientDTO> findByIngredientCategory(int ingredientCategory);
+>>>>>>> ff887acc8aa7f679d7446665769dca3d0a3eedea
 
     /**
 
@@ -17,6 +25,11 @@ public interface IngredientDAO<IngredientDTO, Long> extends BaseDAO<IngredientDT
     /**
      * @method findByIngredientName : 재료 이름을 통해 재료 검색
      * @param ingredientName
+<<<<<<< HEAD
+     * @return Optional<IngredientDTO>
+     */
+    IngredientDTO findByIngredientName(String ingredientName);
+=======
      * @return IngredientDTO
      * */
     IngredientDTO findByIngredientName(String ingredientName);
@@ -52,4 +65,5 @@ public interface IngredientDAO<IngredientDTO, Long> extends BaseDAO<IngredientDT
      * @return
      */
     IngredientDTO updateIngredientPriceByIngredientName(String ingredientName, int stock);
+>>>>>>> ff887acc8aa7f679d7446665769dca3d0a3eedea
 }

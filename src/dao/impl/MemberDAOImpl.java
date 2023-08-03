@@ -1,5 +1,15 @@
 package dao.impl;
 
+<<<<<<< HEAD
+import dao.MemberDAO;
+import dto.MemberDTO;
+
+public class MemberDAOImpl implements MemberDAO {
+
+    @Override
+    public <S extends MemberDTO> S save(S dto) {
+        return null;
+=======
 import common.DBManager;
 import dao.MemberDAO;
 import dto.MemberDTO;
@@ -40,10 +50,19 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
+>>>>>>> ff887acc8aa7f679d7446665769dca3d0a3eedea
     }
 
     @Override
     public <S extends MemberDTO> S update(S dto) {
+<<<<<<< HEAD
+        return null;
+    }
+
+    @Override
+    public MemberDTO findById(Long aLong) {
+        return null;
+=======
         Connection conn = null;
         PreparedStatement pstm = null;
         String sql = "UPDATE MEMBER SET MEMBER_NAME = ?, PHONE_NUMBER = ? WHERE MEMBER_ID = ?";
@@ -90,10 +109,14 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
+>>>>>>> ff887acc8aa7f679d7446665769dca3d0a3eedea
     }
 
     @Override
     public Iterable<MemberDTO> findAll() {
+<<<<<<< HEAD
+        return null;
+=======
         Connection conn = null;
         Statement st = null;
         ResultSet rs = null;
@@ -123,10 +146,19 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
+>>>>>>> ff887acc8aa7f679d7446665769dca3d0a3eedea
     }
 
     @Override
     public long count() {
+<<<<<<< HEAD
+        return 0;
+    }
+
+    @Override
+    public void deleteById(Long aLong) {
+
+=======
         Connection conn = null;
         Statement st = null;
         ResultSet rs = null;
@@ -163,10 +195,14 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
+>>>>>>> ff887acc8aa7f679d7446665769dca3d0a3eedea
     }
 
     @Override
     public void delete(MemberDTO dto) {
+<<<<<<< HEAD
+
+=======
         Connection conn = null;
         PreparedStatement pstm = null;
         String sql = "DELETE FROM MEMBER WHERE MEMBER_ID = ?";
@@ -181,10 +217,14 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
+>>>>>>> ff887acc8aa7f679d7446665769dca3d0a3eedea
     }
 
     @Override
     public void deleteAll() {
+<<<<<<< HEAD
+
+=======
         Connection conn = null;
         PreparedStatement pstm = null;
         String sql = "DELETE FROM MEMBER";
@@ -197,10 +237,16 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
+>>>>>>> ff887acc8aa7f679d7446665769dca3d0a3eedea
     }
 
     @Override
     public MemberDTO findByPhoneNumber(String phoneNumber) {
+<<<<<<< HEAD
+        return null;
+    }
+}
+=======
         Connection conn = null;
         Statement st = null;
         ResultSet rs = null;
@@ -227,3 +273,4 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
         }
     }
 }
+>>>>>>> ff887acc8aa7f679d7446665769dca3d0a3eedea

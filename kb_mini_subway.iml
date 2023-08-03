@@ -10,12 +10,19 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
+<<<<<<< HEAD
+          <root url="jar://$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.26/lombok-1.18.26.jar!/" />
+=======
           <root url="jar://$MODULE_DIR$/lib/lombok-1.18.26.jar!/" />
+>>>>>>> ff887acc8aa7f679d7446665769dca3d0a3eedea
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
+<<<<<<< HEAD
+=======
     <orderEntry type="library" name="ojdbc8" level="project" />
+>>>>>>> ff887acc8aa7f679d7446665769dca3d0a3eedea
   </component>
 </module>
