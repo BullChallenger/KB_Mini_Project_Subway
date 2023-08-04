@@ -13,13 +13,11 @@ public class MenuView {
      */
     public static void menuChoice() {
         while (true) {
-            System.out.println("\n----------------------------------------");
             System.out.print("[ 1. 멤버십   ");
             System.out.print("2. 비회원   ");
             System.out.print("3. 관리자 로그인   ");
-            System.out.print("4. 종료 ]");
-            System.out.println("\n--------------------------------------------");
-            System.out.println("선택메뉴는?");
+            System.out.println("4. 종료 ]");
+            System.out.print("입력 > ");
             try {
                 int menu = Integer.parseInt(sc.nextLine());//
                 switch (menu) {

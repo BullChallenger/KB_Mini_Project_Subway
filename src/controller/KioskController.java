@@ -5,18 +5,19 @@ import dto.MemberDTO;
 import dto.MemberOrderDTO;
 import dto.MenuDTO;
 import exception.NotMemberException;
+import service.AdminService;
 import service.MemberService;
 import service.OrderService;
+import service.impl.AdminServiceImpl;
 import service.impl.MemberServiceImpl;
 import service.impl.OrderServiceImpl;
 import view.FailView;
 import view.KioskView;
 import view.SuccesssView;
+import vo.HistoryVo;
 import vo.OrderVo;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class KioskController {
 
@@ -24,6 +25,7 @@ public class KioskController {
     private static Scanner sc = new Scanner(System.in);
     private static MemberService memberService = MemberServiceImpl.getInstance();
     private static OrderService orderService = OrderServiceImpl.getInstance();
+    private static AdminService adminService = AdminServiceImpl.getInstance();
 
     private static ArrayList<OrderVo> cart = new ArrayList<>();
 
@@ -149,7 +151,35 @@ public class KioskController {
     public static void getMemberOrderHistory(Long memberId, long menuId) {
         // orderService.() -- 추가할 내용 memberId, menuId => MemberOrderDTO 반환
         try {
-            //orderService.findHistoryByMemberMenuId(memberId, menuId);
+            MemberOrderDTO history = orderService.findHistoryByMemberMenuId(memberId, menuId);
+            String selectBread = adminService.findByIngredientId((long) history.getSelectBread()).getIngredientName();
+            String selectCheese = adminService.findByIngredientId((long) history.getSelectCheese()).getIngredientName();
+
+            StringTokenizer st = new StringTokenizer(history.getSelectedAdditionalMenu());
+            StringBuilder additionalSB = new StringBuilder();
+            while (st.hasMoreTokens()) {
+                additionalSB.append(adminService.findByIngredientId(Long.parseLong(st.nextToken())).getIngredientName());
+                additionalSB.append(",");
+            }
+
+            st = new StringTokenizer(history.getExcludedVegetable());
+            StringBuilder exvegeSB = new StringBuilder();
+            while (st.hasMoreTokens()) {
+                exvegeSB.append(adminService.findByIngredientId(Long.parseLong(st.nextToken())).getIngredientName());
+                exvegeSB.append(",");
+            }
+
+            st = new StringTokenizer(history.getSelectedSource());
+            StringBuilder sourceSB = new StringBuilder();
+            while (st.hasMoreTokens()) {
+                sourceSB.append(adminService.findByIngredientId(Long.parseLong(st.nextToken())).getIngredientName());
+                sourceSB.append(",");
+            }
+
+            HistoryVo historyVo = new HistoryVo(
+                    selectBread, selectCheese, additionalSB.toString(), exvegeSB.toString(), sourceSB.toString()
+            );
+            SuccesssView.printMemberOrderDTO(historyVo);
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
@@ -164,16 +194,18 @@ public class KioskController {
             for (OrderVo vo : cart) {
                 MemberOrderDTO orderDTO = orderService.saveMemberOrder(new MemberOrderDTO(
                         (long) 0,
-                        vo.getSelectBread(),
-                        vo.getSelectCheese(),
-                        vo.getSelectedAdditionalMenu(),
-                        vo.getExcludedVegetable(),
-                        vo.getSelectedSource(),
+                        mapping(1, vo.getSelectBread()),
+                        mapping(2, vo.getSelectCheese()),
+                        mappingString(3, vo.getSelectedAdditionalMenu()),
+                        mappingString(4, vo.getExcludedVegetable()),
+                        mappingString(5, vo.getSelectedSource()),
                         null,
                         'N',
                         memberId,
                         (long) vo.getMenuId()));
+
             }
+            cart.clear();
             SuccesssView.printMessageOrderSuccess("주문성공");
         } catch (RuntimeException e) {
             e.printStackTrace();
@@ -191,5 +223,38 @@ public class KioskController {
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
+    }
+
+    private static int mapping(int category, int inputNum) {
+        switch (category) {
+            case 1:
+                return inputNum;
+            case 2:
+                return inputNum + 6;
+        }
+        return -1;
+    }
+
+    private static String mappingString(int category, String inputSelect) {
+        StringTokenizer st = new StringTokenizer(inputSelect);
+        StringBuilder sb = new StringBuilder();
+        switch (category) {
+            case 3: // +9
+                while (st.hasMoreTokens()) {
+                    sb.append((Integer.parseInt(st.nextToken()) + 9));
+                    sb.append(" ");
+                }
+            case 4: // +15
+                while (st.hasMoreTokens()) {
+                    sb.append((Integer.parseInt(st.nextToken()) + 15));
+                    sb.append(" ");
+                }
+            case 5: // + 23
+                while (st.hasMoreTokens()) {
+                    sb.append((Integer.parseInt(st.nextToken()) + 23));
+                    sb.append(" ");
+                }
+        }
+        return sb.toString();
     }
 }
