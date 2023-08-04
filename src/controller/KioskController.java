@@ -4,9 +4,9 @@ import dto.IngredientDTO;
 import dto.MemberDTO;
 import dto.MemberOrderDTO;
 import dto.MenuDTO;
-import service.AdminService;
 import exception.member.MemberException;
 import exception.order.OrderException;
+import service.AdminService;
 import service.MemberService;
 import service.OrderService;
 import service.impl.AdminServiceImpl;
@@ -18,8 +18,10 @@ import view.SuccesssView;
 import vo.HistoryVo;
 import vo.OrderVo;
 
-import java.util.*;
-import java.util.function.Predicate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
 import static exception.constant.MemberExceptionType.NOT_FOUND_MEMBER_ERROR;
@@ -200,7 +202,7 @@ public class KioskController {
             );
             SuccesssView.printMemberOrderDTO(historyVo);
         } catch (OrderException e) {
-            e.printStackTrace();
+            FailView.errorMessage(404,"주문 기록이 없습니다.");
         }
     }
 
