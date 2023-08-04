@@ -19,6 +19,8 @@ import vo.HistoryVo;
 import vo.OrderVo;
 
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static exception.constant.MemberExceptionType.NOT_FOUND_MEMBER_ERROR;
 import static exception.constant.OrderExceptionType.*;
@@ -235,6 +237,20 @@ public class KioskController {
         try {
             for (OrderVo vo : cart) {
                 MenuDTO menu = orderService.findMenuByMenuId((long) vo.getMenuId());
+                List<Long> additionalMenusId =
+                        List.of(vo.getSelectedAdditionalMenu().split(" "))
+                                .stream().map(additionalMenu -> Long.parseLong(additionalMenu)).collect(Collectors.toList());
+                List<IngredientDTO> ingredients = orderService.findIngredientByIngredientCategory(3);
+                List<Long> ingredientsId = ingredients.stream().map(ingredient -> ingredient.getIngredientId() - 9L).collect(Collectors.toList());
+
+                additionalMenusId.forEach(additionalMenuId -> {
+                    int index = ingredientsId.indexOf(additionalMenuId);
+                    if (index >= 0) {
+                        IngredientDTO ingredient = ingredients.get(index);
+                        menu.setMenuPrice(menu.getMenuPrice() + ingredient.getIngredientPrice());
+                    }
+                });
+
                 cartMenu.add(menu);
             }
             SuccesssView.printMenuInfo(cartMenu);
