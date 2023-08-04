@@ -221,8 +221,8 @@ public class KioskController {
                         'N',
                         memberId,
                         (long) vo.getMenuId()));
-
             }
+            
             cart.clear();
             SuccesssView.printMessageOrderSuccess("주문성공");
         } catch (RuntimeException e) {
