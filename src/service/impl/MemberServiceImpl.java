@@ -23,6 +23,11 @@ public class MemberServiceImpl implements MemberService {
         return instance;
     }
 
+    /**
+     * method save: 멤버 저장
+     * @param dto 저장할 멤버 DTO
+     * @return 저장된 멤버 DTO
+     */
     @Override
     public MemberDTO save(MemberDTO dto) {
         try {
@@ -32,6 +37,11 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
+    /**
+     * method update: 멤버 정보 수정
+     * @param dto 수정할 멤버 DTO
+     * @return 수정된 멤버 DTO
+     */
     @Override
     public MemberDTO update(MemberDTO dto) {
         try {
@@ -41,6 +51,11 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
+    /**
+     * method findByMemberId: 멤버 ID를 통한 멤버 조회
+     * @param memberId 조회할 멤버 ID
+     * @return 조회된 멤버 DTO
+     */
     @Override
     public MemberDTO findByMemberId(Long memberId) {
         try {
@@ -50,6 +65,10 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
+    /**
+     * method findAll: 모든 멤버 조회
+     * @return 모든 멤버 DTO Type 리스트
+     */
     @Override
     public List<MemberDTO> findAll() {
         try {
@@ -59,6 +78,12 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
+    /**
+     * method findByPhoneNumber: 멤버의 전화번호를 통한 조회
+     * @param phoneNumber 멤버의 전화번호
+     * @return 조회된 멤버 DTO
+     * @throws NotMemberException
+     */
     @Override
     public MemberDTO findByPhoneNumber(String phoneNumber) throws NotMemberException {
         try {
@@ -68,6 +93,10 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
+    /**
+     * method deleteByMemberId: 멤버 ID를 통한 삭제
+     * @param memberId 삭제할 멤버 ID
+     */
     @Override
     public void deleteByMemberId(Long memberId) {
         try {
@@ -77,6 +106,10 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
+    /**
+     * method delete: 멤버 삭제
+     * @param dto 삭제할 멤버 DTO
+     */
     @Override
     public void delete(MemberDTO dto) {
         try {

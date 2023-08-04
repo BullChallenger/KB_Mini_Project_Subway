@@ -16,9 +16,8 @@ import java.util.Scanner;
 public class KioskView {
 
     static Scanner sc = new Scanner(System.in);
-
-    /***
-     * 멤버의 경우, 전화 번호 입력 후 주문 메뉴로 이동
+    /**
+     * method getUserPhoneNumber: 사용자 전화번호 입력
      */
     public static void getUserPhoneNumber() {
         System.out.println("멤버십 전화 번호 입력");
@@ -29,6 +28,10 @@ public class KioskView {
         KioskController.checkMember(memberPhoneNumber);
     }
 
+    /**
+     * method startOrder: 주문 정보 입력
+     * @param dto 주문중인 회원 DTO
+     */
     public static void startOrder(MemberDTO dto) {
         while (true) {
             System.out.print("[ 1. 주문하기   ");
@@ -137,6 +140,10 @@ public class KioskView {
         }//while문
     }
 
+    /**
+     * method printPoint: 회원의 포인트 출력
+     * @param memberId 회원 ID
+     */
     public static void printPoint(Long memberId) {
         while (true) {
             System.out.print("[ 1. 메뉴담기   ");
@@ -157,6 +164,11 @@ public class KioskView {
         }//while문
     }
 
+    /**
+     * method addCartOrPay: 장바구니담기 또는 결제 선택화면
+     * @param memberId 현재 주문중인 회원 ID
+     * @param cart 장바구니 자료구조
+     */
     public static void addCartOrPay(Long memberId, ArrayList<OrderVo> cart) {
 
         KioskController.findMenuByMenuId(cart);

@@ -18,13 +18,17 @@ public class AdminServiceImpl implements AdminService {
     private static final IngredientDAO ingredientDAO = IngredientDAOImpl.getInstance();
     private static final MenuDAO menuDAO = MenuDAOImpl.getInstance();
 
-    //get instance 생성
     private static final AdminServiceImpl instance = new AdminServiceImpl();
 
     private AdminServiceImpl() {}
 
     public static AdminServiceImpl getInstance() {return instance;}
 
+    /**
+     * method saveIngredient: IngredientDTO를 저장
+     * @param dto 저장할 IngredientDTO
+     * @return 저장된 IngredientDTO
+     */
     @Override
     public IngredientDTO saveIngredient(IngredientDTO dto) {
         try {
@@ -34,6 +38,10 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    /**
+     * method findAllIngredient(): 모든 Ingredient 조회
+     * @return IngredientDTO Type List
+     */
     @Override
     public List<IngredientDTO> findAllIngredient() {
         try {
@@ -43,6 +51,11 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    /**
+     * method findByIngredientID: 재료 ID를 통해 IngredientDTO를 조회
+     * @param ingredientId 조회할 재료 ID
+     * @return
+     */
     @Override
     public IngredientDTO findByIngredientId(Long ingredientId) {
         try {
@@ -52,6 +65,11 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    /**
+     * method findByIngredientName: 재료명을 통해 IngredientDTO 조회
+     * @param ingredientName 조회할 재료 명
+     * @return 조회된 IngredientDTO
+     */
     @Override
     public IngredientDTO findByIngredientName(String ingredientName) {
         try {
@@ -61,6 +79,11 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    /**
+     * method updateIngredient: 재료 정보를 수정
+     * @param dto 수정할 정보가 담긴 재료 DTO
+     * @return 수정된 재료 DTO
+     */
     @Override
     public IngredientDTO updateIngredient(IngredientDTO dto) {
         try {
@@ -70,6 +93,12 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    /**
+     * method updateStockByIngredientId: 재료 ID를 통한 재료 재고 수정
+     * @param ingredientId 재고 수정할 재료 ID
+     * @param stock 수정할 재고량
+     * @return 재고가 수정된 재료 DTO
+     */
     @Override
     public IngredientDTO updateStockByIngredientId(Long ingredientId, int stock) {
         try {
@@ -79,6 +108,12 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    /**
+     * method updateStockByIngredientName: 재료 이름을 통한 재료 재고 수정
+     * @param ingredientName 수정할 재료명
+     * @param stock 수정할 재고량
+     * @return 재고가 수정된 재료 DTO
+     */
     @Override
     public IngredientDTO updateStockByIngredientName(String ingredientName, int stock) {
         try {
@@ -88,6 +123,12 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    /**
+     * method updatePriceByIngredientId: 재료 ID를 통해 가격 수정
+     * @param ingredientId 가격을 수정할 재료 ID
+     * @param price 수정할 가격
+     * @return 수정된 재료 DTO
+     */
     @Override
     public IngredientDTO updatePriceByIngredientId(Long ingredientId, int price) {
         try {
@@ -97,6 +138,12 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    /**
+     * method updatePriceByIngredientName: 재료명을 통해 가격 수정
+     * @param ingredientName 가격을 수정할 재료명
+     * @param price 수정할 가격
+     * @return 수정된 재료 DTO
+     */
     @Override
     public IngredientDTO updatePriceByIngredientName(String ingredientName, int price) {
         try {
@@ -106,6 +153,10 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    /**
+     * method deleteByIngredientId: 재료 ID를 통해 재료 삭제
+     * @param ingredientId 삭제할 재료 ID
+     */
     @Override
     public void deleteByIngredientId(Long ingredientId) {
         try {
@@ -115,6 +166,10 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    /**
+     * method deleteByIngredientName: 재료명으로 재료 삭제
+     * @param ingredientName 삭제할 재료 명
+     */
     @Override
     public void deleteByIngredientName(String ingredientName) {
         try {
@@ -124,6 +179,11 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    /**
+     * method saveMenu: 메뉴 추가
+     * @param dto 추가할 메뉴 DTO
+     * @return 저장된 메뉴 DTO
+     */
     @Override
     public MenuDTO saveMenu(MenuDTO dto) {
         try {
@@ -133,6 +193,10 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    /**
+     * method findAllMenu: 모든 메뉴 조호;
+     * @return 메뉴 DTO 리스트
+     */
     @Override
     public List<MenuDTO> findAllMenu() {
         try {
@@ -142,6 +206,11 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    /**
+     * method findByMenuId: 메뉴 ID를 통해 메뉴 조회
+     * @param menuId 조회할 메뉴 ID
+     * @return 조회한 메뉴 DTO
+     */
     @Override
     public MenuDTO findByMenuId(Long menuId) {
         try {
@@ -151,6 +220,11 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    /**
+     * method findByMenuName: 메뉴명으로 메뉴 조회
+     * @param menuName 조회할 메뉴명
+     * @return 조회한 메뉴 DTO
+     */
     @Override
     public MenuDTO findByMenuName(String menuName) {
         try {
@@ -160,6 +234,11 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    /**
+     * method updateMenu: 메뉴 정보 수정
+     * @param dto 수정할 메뉴 DTO
+     * @return 수정된 메뉴 DTO
+     */
     @Override
     public MenuDTO updateMenu(MenuDTO dto) {
         try {
@@ -169,6 +248,12 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    /**
+     * method updatePriceByMenuId: 메뉴 ID를 통해 메뉴 가격 수정
+     * @param menuId 가격 수정할 메뉴 ID
+     * @param price 수정할 가격
+     * @return 수정 성공 1, 수정 실패 0
+     */
     @Override
     public int updatePriceByMenuId(Long menuId, int price) {
         try {
@@ -178,6 +263,12 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    /**
+     * method updatePriceByMenuName: 메뉴명을 통해 메뉴 가격 수정
+     * @param menuName 수정할 메뉴 이름
+     * @param price 수정할 가격
+     * @return 수정 성공 1, 수정 실패 0
+     */
     @Override
     public int updatePriceByMenuName(String menuName, int price) {
         try {
@@ -187,6 +278,10 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    /**
+     * method deleteByMenuId: 메뉴 ID를 통한 메뉴 삭제
+     * @param menuId 삭제할 메뉴 ID
+     */
     @Override
     public void deleteByMenuId(Long menuId) {
         try {
@@ -196,6 +291,10 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    /**
+     * method deleteByMenuName: 메뉴 명을 통해 메뉴 삭제
+     * @param menuName 삭제할 메뉴 명
+     */
     @Override
     public void deleteByMenuName(String menuName) {
         try {

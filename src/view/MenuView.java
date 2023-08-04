@@ -9,7 +9,7 @@ public class MenuView {
     static Scanner sc = new Scanner(System.in);
 
     /**
-     * 메뉴
+     * method menuChoice: 메뉴
      */
     public static void menuChoice() {
         while (true) {

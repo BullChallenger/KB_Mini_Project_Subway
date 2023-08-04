@@ -3,7 +3,14 @@ package controller;
 import view.AdminView;
 import view.FailView;
 
+/**
+ *
+ */
 public class AdminController {
+    /**
+     * method checkAdmin: 관리자 인증 메소드 (password = 1111)
+     * @param password 관리자 인증 비밀번호 입력 값
+     */
     public static void checkAdmin(String password) {
         // password == 1111 고정
         if (password.equals("1111")) {

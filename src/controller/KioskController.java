@@ -19,7 +19,6 @@ import vo.HistoryVo;
 import vo.OrderVo;
 
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static exception.constant.MemberExceptionType.NOT_FOUND_MEMBER_ERROR;
@@ -38,7 +37,7 @@ public class KioskController {
     /**
      * 멤버 유효성 검사
      * 유효성 검사 통과 시, menu choice 화면으로 이동
-     * @param memberPhoneNumber
+     * @param memberPhoneNumber 사용자로부터 입력받은 사용자 전화번호
      */
     public static void checkMember(String memberPhoneNumber) {
         try {
@@ -54,8 +53,9 @@ public class KioskController {
     }
 
     /**
-     * 주문
-     *
+     * method order : 주문 메소드
+     * @param memberId 주문하는 사용자의 ID
+     * @param vo 사용자의 입력 VO
      */
     public static void order(Long memberId, OrderVo vo) {
         try {
@@ -67,7 +67,7 @@ public class KioskController {
     }
 
     /**
-     * 주문 현황 확인
+     * method orderSelectByAll: 모든 주문 현황 조회
      */
     public static void orderSelectByAll() {
         try {
@@ -79,7 +79,7 @@ public class KioskController {
     }
 
     /**
-     * 모든 메뉴 확인
+     * method menuSelectByAll: 모든 메뉴 조회
      */
     public static int menuSelectByAll() {
         try {
@@ -93,7 +93,7 @@ public class KioskController {
     }
 
     /**
-     * 선택 가능한 빵 확인
+     * method breadSelectByAll: 모든 빵 조회
      */
     public static int breadSelectByAll() {
         try {
@@ -107,7 +107,7 @@ public class KioskController {
     }
 
     /**
-     * 선택 가능한 치즈 확인
+     * method cheeseSelectByAll: 모든 치즈 조회
      */
     public static int cheeseSelectByAll() {
         try {
@@ -121,7 +121,7 @@ public class KioskController {
     }
 
     /**
-     * 선택 가능한 추가메뉴 확인
+     * method additionalMenuSelectByAll: 모든 추가메뉴 확인
      */
     public static int additionalMenuSelectByAll() {
         try {
@@ -135,7 +135,7 @@ public class KioskController {
     }
 
     /**
-     * 제외 가능한 야채 확인
+     * method vegetableSelectByAll: 모든 채소 조회
      */
     public static int vegetableSelectByAll() {
         try {
@@ -149,7 +149,7 @@ public class KioskController {
     }
 
     /**
-     * 선택 가능한 소스 확인
+     * method sourceSelectByAll: 모든 소스 조회
      */
     public static int sourceSelectByAll() {
         try {
@@ -163,12 +163,11 @@ public class KioskController {
     }
 
     /**
-     * 멤버의 해당 메뉴에 대한 과거 기록 조회
-     * @param memberId
-     * @param menuId
+     * method getMemberOrderHistory: 멤버의 해당 메뉴에 대한 과거 기록 조회
+     * @param memberId 현재 주문 중인 고객의 ID
+     * @param menuId 현재 주문 중인 고객이 선택한 메뉴 ID
      */
     public static void getMemberOrderHistory(Long memberId, long menuId) {
-        // orderService.() -- 추가할 내용 memberId, menuId => MemberOrderDTO 반환
         try {
             MemberOrderDTO history = orderService.findHistoryByMemberMenuId(memberId, menuId);
             String selectBread = adminService.findByIngredientId((long) history.getSelectBread()).getIngredientName();
@@ -204,8 +203,10 @@ public class KioskController {
         }
     }
 
+
     /**
-     * 결제하기
+     *
+     * @param memberId 결제를 진행할 고객의 ID
      */
     public static void cartPayment(long memberId) {
 
@@ -232,6 +233,10 @@ public class KioskController {
         }
     }
 
+    /**
+     * method findMenuByMenuId: 메뉴 ID를 통해 menuDTO를 얻는 메소드
+     * @param cart 현재 주문 중인 고객의 장바구니 자료구조
+     */
     public static void findMenuByMenuId(ArrayList<OrderVo> cart) {
         ArrayList<MenuDTO> cartMenu = new ArrayList<>();
         try {
@@ -259,6 +264,12 @@ public class KioskController {
         }
     }
 
+    /**
+     * method mapping: 사용자의 입력값과, 실제 DB의 저장된 ingredientPK 값과의 매칭 메소드
+     * @param category PK값을 찾고자하는 Ingerdient의 Category
+     * @param inputNum 사용자의 입력 값(Integer Type)
+     * @return
+     */
     private static int mapping(int category, int inputNum) {
         switch (category) {
             case 1:
@@ -269,6 +280,12 @@ public class KioskController {
         return -1;
     }
 
+    /**
+     * method mapping: 사용자의 입력값과, 실제 DB의 저장된 ingredientPK 값과의 매칭 메소드
+     * @param category PK값을 찾고자하는 Ingerdient의 Category
+     * @param inputSelect 사용자의 입력 값(String Type)
+     * @return
+     */
     private static String mappingString(int category, String inputSelect) {
         StringTokenizer st = new StringTokenizer(inputSelect);
         StringBuilder sb = new StringBuilder();
