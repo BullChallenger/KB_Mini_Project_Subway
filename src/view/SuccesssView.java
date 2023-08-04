@@ -10,6 +10,10 @@ import java.util.List;
 
 public class SuccesssView {
 
+    /**
+     * method printSelect: 재료정보 출력
+     * @param ingredientDTOS 출력할 재료 DTO 리스트
+     */
     public static void printSelect(List<IngredientDTO> ingredientDTOS) {
         int cnt = 1;
 
@@ -75,6 +79,10 @@ public class SuccesssView {
         }
     }
 
+    /**
+     * method printAllMenu: 매뉴정보 출력
+     * @param allMenu 출력할 메뉴 DTO 리스트
+     */
     public static void printAllMenu(List<MenuDTO> allMenu) {
         int cnt = 1;
 
@@ -96,6 +104,10 @@ public class SuccesssView {
         System.out.println();
     }
 
+    /**
+     * method printOrderStatus: 주문정보 출력
+     * @param allOrderInfo 출력할 주문정보 리스트
+     */
     public static void printOrderStatus(List<MemberOrderDTO> allOrderInfo) {
         for (MemberOrderDTO memberOrderDTO : allOrderInfo) {
             System.out.println("==================");
@@ -106,6 +118,10 @@ public class SuccesssView {
         }
     }
 
+    /**
+     * method printMenuInfo: 담아두기 정보 출력
+     * @param cart 출력할 담아두기 정보 리스트
+     */
     public static void printMenuInfo(ArrayList<MenuDTO> cart) {
         int totalPrice = 0;
         int menuCnt = 1;
@@ -122,11 +138,19 @@ public class SuccesssView {
         System.out.println("====================================");
     }
 
+    /**
+     * method printMessageOrderSuccess: 주문성공 출력
+     * @param message 출력 메세지
+     */
     public static void printMessageOrderSuccess(String message) {
         System.out.println(message);
 
     }
 
+    /**
+     * method printMemberOrderDTO: 특정 고객의 과거 주문 기록 출력
+     * @param history 기록 정보
+     */
     public static void printMemberOrderDTO(HistoryVo history) {
         System.out.println("============== 과거주문 ==============");
         System.out.println("빵 : "+history.getBreadName()+"   |    치즈 : "+history.getCheeseName()+"     | 추가재료 : "+history.getAdditionalMenu());

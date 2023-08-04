@@ -13,8 +13,7 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
 
     private static final MemberDAOImpl instance = new MemberDAOImpl();
 
-    private MemberDAOImpl() {
-    };
+    private MemberDAOImpl() {};
 
     public static MemberDAOImpl getInstance() {
         return instance;
@@ -225,6 +224,7 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
 
             return theMember;
         }catch (SQLException e) {
+            e.printStackTrace();
             throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);

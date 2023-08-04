@@ -9,6 +9,7 @@ public class AdminView {
 
     static Scanner sc = new Scanner(System.in);
     /**
+     * method getAdminPassword: 관리자 비밀번호 입력 뷰
      * 관리자의 경우, 비밀번호 입력 후 관리자 메뉴로 이동
      */
     public static void getAdminPassword() {
@@ -18,6 +19,7 @@ public class AdminView {
     }
 
     /**
+     * method startSetting: 관리자 메뉴 출력 뷰
      * 관리자 설정 메뉴로 이동
      */
     public static void startSetting() {
@@ -50,6 +52,9 @@ public class AdminView {
         }//while문
     }
 
+    /**
+     * method viewStockCrud: 재고 관리 뷰
+     */
     private static void viewStockCrud() {
         while (true) {
             System.out.println("\n----------------------------------------");
@@ -86,8 +91,8 @@ public class AdminView {
 
 
     /**
-     * 관리자의 매장 관리
-     * - 재료 메뉴 레시피 CRUD
+     * method manageStore: 관리자의 매장 관리
+     * 재료 메뉴 레시피 CRUD
      */
 
     private static void manageStore_selectAll() {
@@ -116,8 +121,7 @@ public class AdminView {
     }
 
     /**
-     * 관리자의 주문관리
-     * -
+     * method manageOrder: 관리자의 주문관리
      */
     public static void manageOrder() {
         // 현재 미처리 주문 확인
