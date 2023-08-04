@@ -3,7 +3,7 @@ package dao.impl;
 import common.DBManager;
 import dao.IngredientDAO;
 import dto.IngredientDTO;
-import dto.MemberDTO;
+import exception.base.BaseException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
 
             return dto;
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
@@ -64,7 +64,7 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
 
             return dto;
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
@@ -93,7 +93,7 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
 
             return theIngredient;
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -128,8 +128,7 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
 
             return ingredientList;
         }catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -151,7 +150,7 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
             return rs.getLong(1);
         }catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -169,7 +168,7 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
 
             pstm.executeUpdate();
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
@@ -188,7 +187,7 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
 
             pstm.setLong(1, dto.getIngredientId());
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
@@ -204,7 +203,7 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
             conn = DBManager.getConnection();
             pstm = conn.prepareStatement(sql);
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
@@ -217,14 +216,15 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
         Connection conn = null;
         Statement st = null;
         ResultSet rs = null;
-        String sql = "SELECT INGREDIENT_ID, INGREDIENT_NAME, STOCK, INGREDIENT_PRICE, INGREDIENT_CALORIE, INGREDIENT_CATEGORY FROM INGREDIENT WHERE INGREDIENT_CATEGORY = ?";
+
+        String sql = "SELECT INGREDIENT_ID, INGREDIENT_NAME, STOCK, INGREDIENT_PRICE, INGREDIENT_CALORIE, INGREDIENT_CATEGORY FROM INGREDIENT WHERE INGREDIENT_CATEGORY = "+ingredientCategory;
+
         List<IngredientDTO> ingredientList = new ArrayList<>();
 
         try {
             conn = DBManager.getConnection();
             st = conn.createStatement();
             rs = st.executeQuery(sql);
-            rs.next();
 
             while(rs.next()) {
                 IngredientDTO theIngredient = new IngredientDTO();
@@ -240,8 +240,7 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
             }
             return ingredientList;
         }catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -272,7 +271,7 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
 
             return theIngredient;
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -293,7 +292,7 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
 
             return theIngredient;
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
@@ -314,7 +313,7 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
 
             return theIngredient;
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
@@ -335,7 +334,7 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
 
             return theIngredient;
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
@@ -356,7 +355,7 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
 
             return theIngredient;
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }

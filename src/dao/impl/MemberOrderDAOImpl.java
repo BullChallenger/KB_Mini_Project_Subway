@@ -2,8 +2,8 @@ package dao.impl;
 
 import common.DBManager;
 import dao.MemberOrderDAO;
-import dto.IngredientDTO;
 import dto.MemberOrderDTO;
+import exception.base.BaseException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return dto;
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
@@ -69,7 +69,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return dto;
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
@@ -102,7 +102,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return theMemberOrder;
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -113,7 +113,8 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
         Connection conn = null;
         Statement st = null;
         ResultSet rs = null;
-        String sql = "SELECT MEMBERORDERID, SELECT_BREAD , SELECT_CHEESE , SELECT_ADDITIONALMENU , EXCLUDE_VEGETABLE , SELECT_SOURCE , ORDER_DATE , MENU_ID , MEMBER_ID , ORDER_STATUS FROM MEMBERORDER";
+        String sql = "SELECT MEMBERORDERID, SELECT_BREAD , SELECT_CHEESE , SELECT_ADDITIONALMENU , EXCLUDE_VEGETABLE , SELECT_SOURCE , ORDER_DATE , MENU_ID , MEMBER_ID , ORDER_STATUS FROM MEMBERORDER " +
+                     "WHERE ORDER_STATUS = 'N'";
 
 
 
@@ -142,7 +143,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return memberOrderList;
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -164,7 +165,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
             return rs.getLong(1);
         }catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -182,7 +183,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             pstm.executeUpdate();
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
@@ -200,7 +201,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             pstm.setLong(1, dto.getMemberOrderId());
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
@@ -216,7 +217,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
             conn = DBManager.getConnection();
             pstm = conn.prepareStatement(sql);
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
@@ -237,8 +238,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return rs.getLong(1);
         }catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -259,8 +259,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return rs.getLong(1);
         }catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -281,8 +280,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return rs.getLong(1);
         }catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -319,7 +317,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return memberOrderList;
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -357,20 +355,18 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return memberOrderList;
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
     }
 
-
-    //SELECT MEMBERORDERID , SELECT_BREAD, SELECT_CHEESE, SELECT_ADDITIONALMENU, EXCLUDE_VEGETABLE, SELECT_SOURCE, ORDER_DATE, MENU_ID, MEMBER_ID FROM (SELECT MEMBERORDERID , SELECT_BREAD, SELECT_CHEESE, SELECT_ADDITIONALMENU, EXCLUDE_VEGETABLE, SELECT_SOURCE, ORDER_DATE, MENU_ID, MEMBER_ID FROM MEMBERORDER WHERE MEMBER_ID = 40 ORDER BY ORDER_DATE) WHERE ROWNUM = 1;
     @Override
     public MemberOrderDTO findByMenuIdAndMemberId(Long menuId, Long memberId) {
         Connection conn = null;
         Statement st = null;
         ResultSet rs = null;
-        String sql = "SELECT MEMBERORDERID , SELECT_BREAD, SELECT_CHEESE, SELECT_ADDITIONALMENU, EXCLUDE_VEGETABLE, SELECT_SOURCE, ORDER_DATE, MENU_ID, MEMBER_ID FROM (SELECT MEMBERORDERID , SELECT_BREAD, SELECT_CHEESE, SELECT_ADDITIONALMENU, EXCLUDE_VEGETABLE, SELECT_SOURCE, ORDER_DATE, MENU_ID, MEMBER_ID FROM MEMBERORDER WHERE MEMBER_ID = ? ORDER BY ORDER_DATE) WHERE ROWNUM = 1";
+        String sql = "SELECT MEMBERORDERID , SELECT_BREAD, SELECT_CHEESE, SELECT_ADDITIONALMENU, EXCLUDE_VEGETABLE, SELECT_SOURCE, ORDER_DATE, MENU_ID, MEMBER_ID, ORDER_STATUS FROM (SELECT MEMBERORDERID , SELECT_BREAD, SELECT_CHEESE, SELECT_ADDITIONALMENU, EXCLUDE_VEGETABLE, SELECT_SOURCE, ORDER_DATE, MENU_ID, MEMBER_ID, ORDER_STATUS FROM MEMBERORDER WHERE MEMBER_ID = " + memberId + " ORDER BY ORDER_DATE DESC) WHERE ROWNUM = 1";
 
         try {
             conn = DBManager.getConnection();
@@ -392,10 +388,28 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return theMemberOrder;
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            throw new BaseException();
         } finally {
             DBManager.releaseConnection(conn, st, rs);
+        }
+    }
+
+    @Override
+    public int updateOrderStatusByMemberOrderId(Long memberOrderId) {
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        String sql = "UPDATE MEMBERORDER SET ORDER_STATUS = 'Y' WHERE MEMBERORDERID = " + memberOrderId;
+        MemberOrderDTO theMemberOrder = new MemberOrderDTO();
+
+        try {
+            conn = DBManager.getConnection();
+            pstm = conn.prepareStatement(sql);
+
+            return pstm.executeUpdate();
+        }catch (SQLException e) {
+            throw new BaseException();
+        }finally {
+            DBManager.releaseConnection(conn, pstm);
         }
     }
 }

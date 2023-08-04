@@ -6,10 +6,11 @@ import dto.AnonymousOrderDTO;
 import dto.IngredientDTO;
 import dto.MemberOrderDTO;
 import dto.MenuDTO;
+import exception.base.BaseException;
+import exception.order.OrderException;
 import service.OrderService;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
@@ -24,13 +25,22 @@ public class OrderServiceImpl implements OrderService {
     public static OrderServiceImpl getInstance() { return instance; }
     @Override
     public MemberOrderDTO saveMemberOrder(MemberOrderDTO dto) throws RuntimeException{
-        MemberOrderDTO saveMemberOrderDTO = (MemberOrderDTO) memberOrderDAO.save(dto);
-        return saveMemberOrderDTO;
+        MemberOrderDTO saveMemberOrderDTO = null;
+        try {
+            saveMemberOrderDTO = (MemberOrderDTO) memberOrderDAO.save(dto);
+            return saveMemberOrderDTO;
+        } catch (BaseException e) {
+            throw new OrderException();
+        }
     }
 
     @Override
     public MemberOrderDTO updateMemberOrderStatus(char orderStatus) {
-        return null;
+        try {
+            return null;
+        } catch (BaseException e) {
+            throw new OrderException();
+        }
     }
 
     @Override
@@ -80,16 +90,23 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<MenuDTO> findAllMenu() throws RuntimeException {
-        List<MenuDTO> all = (List<MenuDTO>) menuDAO.findAll();
-        for (MenuDTO o : all) {
-            System.out.println(o);
+        try {
+            List<MenuDTO> all = (List<MenuDTO>) menuDAO.findAll();
+            return all;
+        } catch (BaseException e) {
+            throw new OrderException();
         }
-        return all;
     }
 
     @Override
     public List<IngredientDTO> findIngredientByIngredientCategory(int ingredientCategory) throws RuntimeException{
-        Iterable ingredientList = ingredientDAO.findByIngredientCategory(ingredientCategory);
+        Iterable ingredientList = null;
+        try {
+            ingredientList = ingredientDAO.findByIngredientCategory(ingredientCategory);
+        } catch (BaseException e) {
+            throw new OrderException();
+        }
+
         ArrayList<IngredientDTO> list = new ArrayList<>();
         for (Object o : ingredientList) {
             list.add((IngredientDTO) o);
@@ -99,13 +116,39 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<MemberOrderDTO> findAllOrderInfo() throws RuntimeException{
-        List<MemberOrderDTO> orderDAOAll = (List<MemberOrderDTO>) memberOrderDAO.findAll();
-        return orderDAOAll;
+        try {
+            List<MemberOrderDTO> orderDAOAll = (List<MemberOrderDTO>) memberOrderDAO.findAll();
+            return orderDAOAll;
+        } catch (BaseException e) {
+            throw new OrderException();
+        }
     }
 
     @Override
     public MenuDTO findMenuByMenuId(Long id) throws RuntimeException{
-        MenuDTO menuDTO = (MenuDTO) menuDAO.findById(id);
-        return menuDTO;
+        try {
+            MenuDTO menuDTO = (MenuDTO) menuDAO.findById(id);
+            return menuDTO;
+        } catch (BaseException e) {
+            throw new OrderException();
+        }
+    }
+
+    @Override
+    public int updateOrderStatusByMemberOrderId(Long id) {
+        try {
+            return memberOrderDAO.updateOrderStatusByMemberOrderId(id);
+        } catch (BaseException e) {
+            throw new OrderException();
+        }
+    }
+
+    @Override
+    public MemberOrderDTO findHistoryByMemberMenuId(Long memberId, Long menuId) {
+        try {
+            return (MemberOrderDTO) memberOrderDAO.findByMenuIdAndMemberId(menuId, memberId);
+        } catch (BaseException e) {
+            throw new OrderException();
+        }
     }
 }
