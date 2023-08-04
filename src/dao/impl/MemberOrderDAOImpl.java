@@ -18,6 +18,12 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
     public static MemberOrderDAOImpl getInstance() {return instance;}
 
+    /**
+     * 회원 주문을 DB에 저장
+     * @param dto 회원 주문의 정보가 담긴 객체
+     * @return 저장된 회원 주문의 정보가 담긴 객체
+     * @param <S> MemberOrderDTO 를 상속받는 클래스
+     */
     @Override
     public <S extends MemberOrderDTO> S save(S dto) {
         Connection conn = null;
@@ -47,6 +53,12 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
         }
     }
 
+    /**
+     * 회원 주문의 정보를 갱신
+     * @param dto 수정사항이 반영된 회원 주문의 정보가 담긴 객체
+     * @return 수정사항이 반영된 회원 주문의 정보가 담긴 객체
+     * @param <S> MemberOrderDTO 를 상속받는 클래스
+     */
     @Override
     public <S extends MemberOrderDTO> S update(S dto) {
         Connection conn = null;
@@ -75,6 +87,11 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
         }
     }
 
+    /**
+     * 회원 주문의 Primary Key 를 통해 특정 회원 주문을 조회
+     * @param memberOrderId 회원 주문의 Primary Key
+     * @return 조회된 회원 주문의 정보가 반영된 객체
+     */
     @Override
     public MemberOrderDTO findById(Long memberOrderId) {
         Connection conn = null;
@@ -108,6 +125,10 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
         }
     }
 
+    /**
+     * DB 에 저장된 모든 회원 주문의 정보를 목록으로 반환
+     * @return DB 에 저장된 모든 회원 주문 목록
+     */
     @Override
     public Iterable<MemberOrderDTO> findAll() {
         Connection conn = null;
@@ -149,6 +170,10 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
         }
     }
 
+    /**
+     * DB에 저장되어 있는 모든 회원 주문의 수
+     * @return DB에 저장되어 있는 모든 회원 주문의 수
+     */
     @Override
     public long count() {
         Connection conn = null;
@@ -171,6 +196,10 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
         }
     }
 
+    /**
+     * 회원 주문의 Primary Key 를 통해 특정 회원 주문 삭제
+     * @param memberOrderId 삭제하고자 하는 회원 주문의 Primary Key
+     */
     @Override
     public void deleteById(Long memberOrderId) {
         Connection conn = null;
@@ -189,6 +218,10 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
         }
     }
 
+    /**
+     * 삭제하고자 하는 회원 주문의 정보가 담긴 객체를 통해 회원 주문 삭제
+     * @param dto 삭제하고자 하는 회원 주문의 정보가 담긴 객체
+     */
     @Override
     public void delete(MemberOrderDTO dto) {
         Connection conn = null;
@@ -207,6 +240,9 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
         }
     }
 
+    /**
+     * DB에 저장되어 있는 모든 회원 주문 삭제
+     */
     @Override
     public void deleteAll() {
         Connection conn = null;
@@ -223,6 +259,11 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
         }
     }
 
+    /**
+     * 주문 일자를 기준으로 회원 주문 수 조회
+     * @param memberOrderDate 조회하고자 하는 주문일자
+     * @return 파라미터로 입력된 주문 일자에 주문된 회원 주문의 수
+     */
     @Override
     public Long countByMemberOrderDate(String memberOrderDate) {
         Connection conn = null;
@@ -244,6 +285,11 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
         }
     }
 
+    /**
+     * 메뉴의 Primary Key 를 기준으로 회원 주문의 수를 조회
+     * @param menuId 수를 조회하고자 하는 메뉴의 Primary Key
+     * @return 특정 메뉴의 회원 주문의 수
+     */
     @Override
     public Long countByMenuId(Long menuId) {
         Connection conn = null;
@@ -265,6 +311,11 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
         }
     }
 
+    /**
+     * 회원의 Primary Key 를 기준으로 특정 회원 주문의 수를 조회
+     * @param memberId 주문의 수를 조회하고자 하는 회원의 Primary Key
+     * @return 특정 회원의 주문 수
+     */
     @Override
     public Long countByMemberId(Long memberId) {
         Connection conn = null;
@@ -286,6 +337,11 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
         }
     }
 
+    /**
+     * 회원의 Primary Key 를 기준으로 특정 회원 주문 목록을 반환
+     * @param memberId 주문 목록을 반환하고자 하는 회원의 Primary Key
+     * @return 특정 회원 주문 목록
+     */
     @Override
     public List<MemberOrderDTO> findByMemberId(Long memberId) {
         Connection conn = null;
@@ -323,6 +379,11 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
         }
     }
 
+    /**
+     * 메뉴 Primary Key 를 기준으로 특정 주문의 목록 반환
+     * @param menuId 주문 목록을 반환받고자 하는 메뉴의 Primary Key
+     * @return 특정 주문의 목록
+     */
     @Override
     public List<MemberOrderDTO> findByMenuId(Long menuId) {
         Connection conn = null;
@@ -361,6 +422,12 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
         }
     }
 
+    /**
+     * 메뉴의 Primary Key 와 회원의 Primary Key 를 동시에 만족하는 회원 주문 조회
+     * @param menuId 찾고자 하는 메뉴의 Primary Key
+     * @param memberId 찾고자 하는 회원의 Primary Key
+     * @return 메뉴의 Primary Key 와 회원의 Primary Key 를 동시에 만족하는 회원 주문
+     */
     @Override
     public MemberOrderDTO findByMenuIdAndMemberId(Long menuId, Long memberId) {
         Connection conn = null;
@@ -394,6 +461,11 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
         }
     }
 
+    /**
+     * 회원 주문의 Primary Key 로 특정 회원 주문의 상태를 변경
+     * @param memberOrderId 상태를 변경하고자 하는 회원 주문의 Primary Key
+     * @return 변경 완료 1, 실패 0
+     */
     @Override
     public int updateOrderStatusByMemberOrderId(Long memberOrderId) {
         Connection conn = null;

@@ -3,8 +3,8 @@ package dao.impl;
 import common.DBManager;
 import dao.AnonymousOrderDAO;
 import dto.AnonymousOrderDTO;
-import exception.base.BaseException;
 import exception.admin.AdminException;
+import exception.base.BaseException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,6 +19,11 @@ public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDT
 
     public static AnonymousOrderDAOImpl getInstance() {return instance;}
 
+    /**
+     * 주문 일자 기준으로 DB 에 저장되어 있는 비회원 주문의 수를 반환
+     * @param anonymousOrderDate 비회원 주문 일자
+     * @return 비회원 주문의 수
+     */
     @Override
     public Long countByAnonymousOrderDate(String anonymousOrderDate) {
 
@@ -42,6 +47,11 @@ public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDT
         }
     }
 
+    /**
+     * 메뉴의 Primary Key 기준으로 DB 에 저장되어 있는 비회원 주문의 수를 반환
+     * @param menuId 메뉴의 Primary Key
+     * @return 비회원 주문의 수
+     */
     @Override
     public Long countByMenuId(Long menuId) {
         Connection conn = null;
@@ -64,6 +74,11 @@ public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDT
         }
     }
 
+    /**
+     * 메뉴의 Primary Key 기준으로 DB 에 저장되어 있는 비회원 주문 목록을 반환
+     * @param menuId 메뉴의 Primary Key
+     * @return 비회원 주문 목록
+     */
     @Override
     public List<AnonymousOrderDTO> findByMenuId(Long menuId) {
         Connection conn = null;
@@ -98,10 +113,17 @@ public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDT
     }
 
     @Override
+    @Deprecated
     public List<AnonymousOrderDTO> findByAnonymousOrderId(Long anonymousorderId) {
         return null;
     }
 
+    /**
+     * 비회원 주문을 DB에 저장
+     * @param dto AnonymousOrderDTO
+     * @return DB 에 저장된 비회원 주문 DTO
+     * @param <S> AnonymousOrderDTO 를 상속받는 모든 클래스
+     */
     @Override
     public <S extends AnonymousOrderDTO> S save(S dto) {
         Connection conn = null;
@@ -124,6 +146,12 @@ public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDT
         }
     }
 
+    /**
+     * DB에 저장되어 있는 비회원 주문의 값을 수정
+     * @param dto 변경사항이 반영된 AnonymousOrderDTO
+     * @return 변경사항이 반영된 AnonymousOrderDTO
+     * @param <S> AnonymousOrderDTO 를 상속받는 모든 클래스
+     */
     @Override
     public <S extends AnonymousOrderDTO> S update(S dto) {
         Connection conn = null;
@@ -152,6 +180,10 @@ public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDT
         return null;
     }
 
+    /**
+     * DB에 저장되어 있는 모든 비회원 주문 목록 반환
+     * @return List<AnonymousOrderDTO>
+     */
     @Override
     public Iterable<AnonymousOrderDTO> findAll() {
         Connection conn = null;
@@ -186,6 +218,10 @@ public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDT
         }
     }
 
+    /**
+     * 모든 비회원 주문의 수를 반환
+     * @return 모든 비회원 주문의 수
+     */
     @Override
     public long count() {
         Connection conn = null;
@@ -208,6 +244,10 @@ public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDT
         }
     }
 
+    /**
+     * 비회원 주문의 id를 기준으로 비회원 주문 삭제
+     * @param anonymousOrderId 비회원 주문의 id
+     */
     @Override
     public void deleteById(Long anonymousOrderId) {
         Connection conn = null;
@@ -226,6 +266,10 @@ public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDT
         }
     }
 
+    /**
+     * 삭제하고 하는 비회원 주문 객체를 통해 DB에 저장된 비회원 주문 삭제
+     * @param dto 삭제하고 하는 비회원 주문 객체
+     */
     @Override
     public void delete(AnonymousOrderDTO dto) {
         Connection conn = null;
@@ -244,6 +288,9 @@ public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDT
         }
     }
 
+    /**
+     * 모든 비회원 주문 삭제
+     */
     @Override
     public void deleteAll() {
         Connection conn = null;

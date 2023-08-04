@@ -20,6 +20,12 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
     private MenuDAOImpl(){}
     public static MenuDAOImpl getInstance() {return instance;}
 
+    /**
+     * 메뉴를 DB에 저장
+     * @param dto 저장하고자 하는 메뉴의 정보가 반영된 객체
+     * @return 저장하고자 하는 메뉴의 정보가 반영된 객체
+     * @param <S> MenuDTO 를 상속받은 클래스
+     */
     @Override
     public <S extends MenuDTO> S save(S dto) {
         Connection con=null;
@@ -44,9 +50,13 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
 
 
     }
+
     /**
      * 이름 기반 메뉴 검색 및 업데이트 수행
-     **/
+     * @param dto 수정하고자 하는 메뉴의 정보가 반영된 객체
+     * @return 수정하고자 하는 메뉴의 정보가 반영된 객체
+     * @param <S> MenuDTO 를 상속받은 클래스
+     */
     @Override
     public <S extends MenuDTO> S update(S dto) {
 
@@ -71,6 +81,12 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
         }
     }
 
+    /**
+     * 메뉴의 Primary Key 를 통해 메뉴의 가격을 수정
+     * @param menuId 가격을 수정하고자 하는 메뉴의 Primary Key
+     * @param price 수정하고자 하는 목표 가격
+     * @return 성공 1, 실패 0
+     */
     @Override
     public int updatePriceByMenuId(Long menuId, int price) {
         Connection con = null;
@@ -93,6 +109,12 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
         }
     }
 
+    /**
+     * 메뉴의 이름을 통해 메뉴의 가격을 수정
+     * @param menuName 가격을 수정하고자 하는 메뉴의 이름
+     * @param price 수정하고자 하는 목표 가격
+     * @return 성공 1, 실패 0
+     */
     @Override
     public int updatePriceByMenuName(String menuName, int price) {
         Connection con = null;
@@ -116,9 +138,9 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
     }
 
     /**
-     * @method 메뉴 이름기반으로 메뉴 검색
-     * @param menuName
-     * @return
+     * 메뉴 이름기반으로 메뉴 검색
+     * @param menuName 정보를 조회하고자 하는 메뉴의 이름
+     * @return 조회된 정보가 반영된 객체
      */
     @Override
     public MenuDTO findMenuByMenuName(String menuName) {
@@ -151,8 +173,8 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
 
     /**
      * 메뉴 ID기반으로 메뉴 검색
-     * @param MenuId
-     * @return
+     * @param MenuId 조회하고자 하는 메뉴의 Primary Key
+     * @return 조회한 정보가 반영된 객체
      */
     @Override
     public MenuDTO findById(Long MenuId) {
@@ -184,9 +206,9 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
     }
 
     /**
-     *
-     * 메뉴 전체 출력
-     **/
+     * DB에 저장된 모든 메뉴 조회
+     * @return DB에 저장된 모든 메뉴 목록을 반환
+     */
     @Override
     public Iterable<MenuDTO> findAll() {
         Connection con = null;
@@ -217,6 +239,10 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
 
     }
 
+    /**
+     * DB에 저장된 모든 메뉴의 수를 반환
+     * @return DB에 저장된 모든 메뉴의 수
+     */
     @Override
     public long count() {
         Connection con = null;
@@ -239,7 +265,10 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
         }
     }
 
-
+    /**
+     * 메뉴의 Primary Key 를 통해 특정 메뉴 삭제
+     * @param Menuid 삭제하고자 하는 메뉴의 Primary Key
+     */
     @Override
     public void deleteById(Long Menuid) {
             Connection con = null;
@@ -257,9 +286,12 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
             }finally{
                 DBManager.releaseConnection(con, ps);
             }
-            }
+    }
 
-
+    /**
+     * 삭제하고자 하는 메뉴의 정보가 반영된 객체를 통해 특정 메뉴 삭제
+     * @param dto 삭제하고자 하는 메뉴의 정보가 반영된 객체
+     */
     @Override
     public void delete(MenuDTO dto) {//이름 삭제로 구현
         Connection con = null;
@@ -280,7 +312,9 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
         }
     }
 
-
+    /**
+     * DB에 저장된 모든 메뉴 삭제
+     */
     @Override
     public void deleteAll() {
         Connection con = null;
@@ -299,6 +333,10 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
         }
     }
 
+    /**
+     * 메뉴의 이름을 통해 특정 메뉴를 삭제
+     * @param menuName 삭제하고자 하는 메뉴의 이름
+     */
     @Override
     public void deleteByMenuName(String menuName) {
         Connection con = null;

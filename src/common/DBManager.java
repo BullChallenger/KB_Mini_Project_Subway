@@ -22,8 +22,8 @@ public class DBManager {
 
 	/**
 	 * 연결
-	 * @return
-	 * @throws SQLException
+	 * @return Connection for JDBC
+	 * @throws SQLException SQLException in Connection Process
 	 */
 	public static Connection getConnection() throws SQLException{
 		return DriverManager.getConnection(DBProperties.URL,
@@ -32,8 +32,8 @@ public class DBManager {
 
 	/**
 	 * 닫기(DML전용)
-	 * @param con
-	 * @param st
+	 * @param con Connection for JDBC
+	 * @param st Statement for JDBC Query
 	 */
 	public static void releaseConnection(Connection con, Statement st) {
 		try {
@@ -47,9 +47,9 @@ public class DBManager {
 
 	/**
 	 * 닫기(select전용)
-	 * @param con
-	 * @param st
-	 * @param rs
+	 * @param con Connection for JDBC
+	 * @param st Statement for JDBC Query
+	 * @param rs ResultSet for JDBC Query
 	 */
     public static void releaseConnection(Connection con, Statement st, ResultSet rs) {
     	try {

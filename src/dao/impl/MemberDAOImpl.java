@@ -19,7 +19,12 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
         return instance;
     }
 
-
+    /**
+     * 회원의 정보를 DB에 저장
+     * @param dto 저장하고자 하는 회원의 정보가 반영된 객체
+     * @return DB에 저장된 회원의 정보가 반영된 객체
+     * @param <S> MemberDTO 를 상속받는 모든 클래스
+     */
     @Override
     public <S extends MemberDTO> S save(S dto) {
         Connection conn = null;
@@ -42,6 +47,12 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
         }
     }
 
+    /**
+     * DB에 저장되어 있는 회원 정보를 수정
+     * @param dto 수정사항이 반영된 회원 객체
+     * @return 수정사항이 반영된 회원 객체
+     * @param <S> MemberDTO 를 상속받는 모든 클래스
+     */
     @Override
     public <S extends MemberDTO> S update(S dto) {
 
@@ -66,6 +77,11 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
         }
     }
 
+    /**
+     * 회원의 Primary Key 값을 통해 특정 회원의 정보를 반환
+     * @param memberId 정보를 찾고자 하는 회원의 Primary Key
+     * @return 찾은 회원의 정보가 반영된 객체
+     */
     @Override
     public MemberDTO findById(Long memberId) {
         Connection conn = null;
@@ -93,6 +109,10 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
         }
     }
 
+    /**
+     * DB에 저장된 모든 회원 목록을 반환
+     * @return 모든 회원 목록
+     */
     @Override
     public Iterable<MemberDTO> findAll() {
 
@@ -127,6 +147,10 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
         }
     }
 
+    /**
+     * DB에 저장된 모든 회원의 수
+     * @return DB에 저장된 모든 회원의 수
+     */
     @Override
     public long count() {
 
@@ -149,6 +173,10 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
         }
     }
 
+    /**
+     * 회원의 Primary Key 값을 통해 특정 회원 삭제
+     * @param memberId 삭제하고자 하는 회원의 Primary Key
+     */
     @Override
     public void deleteById(Long memberId) {
         Connection conn = null;
@@ -167,6 +195,10 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
         }
     }
 
+    /**
+     * 삭제하고자 하는 회원의 정보가 담긴 객체를 통해 Db에 저장된 회원 삭제
+     * @param dto 삭제하고자 하는 회원의 정보가 담긴 객체
+     */
     @Override
     public void delete(MemberDTO dto) {
         Connection conn = null;
@@ -185,6 +217,9 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
         }
     }
 
+    /**
+     * DB에 저장되어 있는 모든 회원 정보 삭제
+     */
     @Override
     public void deleteAll() {
 
@@ -202,6 +237,11 @@ public class MemberDAOImpl implements MemberDAO<MemberDTO, Long> {
         }
     }
 
+    /**
+     * 회원의 전화번호를 통해 DB에 저장된 회원 정보 조회
+     * @param phoneNumber 조회하고자 하는 회원의 전화번호
+     * @return 전화번호를 통해 조회된 회원의 정보가 반영된 객체
+     */
     @Override
     public MemberDTO findByPhoneNumber(String phoneNumber) {
 
