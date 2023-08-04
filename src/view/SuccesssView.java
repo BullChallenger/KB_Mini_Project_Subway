@@ -129,8 +129,8 @@ public class SuccesssView {
 
     public static void printMemberOrderDTO(HistoryVo history) {
         System.out.println("============== 과거주문 ==============");
-        System.out.println("빵: "+history.getBreadName()+"| 치즈: "+history.getCheeseName()+"| 추가재료: "+history.getAdditionalMenu()+"| 제외한 채소: "+history.getExcludeVege()
-                +"| 소스: "+history.getSelectedSource());
+        System.out.println("빵 : "+history.getBreadName()+"   |    치즈 : "+history.getCheeseName()+"     | 추가재료 : "+history.getAdditionalMenu());
+        System.out.println("제외한 채소 : "+history.getExcludeVege()+"     | 소스 : "+history.getSelectedSource());
 
     }
 }
