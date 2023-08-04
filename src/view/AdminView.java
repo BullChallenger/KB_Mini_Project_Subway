@@ -38,8 +38,7 @@ public class AdminView {
                         manageOrder();
                         break;
                     case 2:
-//                        viewStockCrud();
-                        manageStore();
+                      viewStockCrud();
                         break;
                     case 3:
                         System.out.println("다음에 다시 만나요~~^^ 로그아웃됩니다...");
@@ -60,7 +59,7 @@ public class AdminView {
         while (true) {
             System.out.println("\n----------------------------------------");
             System.out.print("[ 1. 재고상태 조회   ");
-            System.out.print("2. 재고 상태 변경   ");
+            System.out.print("2. 재고 수량 변경   ");
             System.out.print("3. 재고 삭제 ");
             System.out.print("4. 종료 ]");
             System.out.println("\n--------------------------------------------");
@@ -68,14 +67,13 @@ public class AdminView {
                 int menu = Integer.parseInt(sc.nextLine());//
                 switch (menu) {
                     case 1:
-                        manageStore();
+                        manageStore_selectAll();
                         break;
                     case 2:
-                        viewStockCrud();
-                        manageStore();
+                        manageStore_changeStockAmount();
                         break;
                     case 3:
-                        System.out.println(" 삭제");
+                        manageStore_delete();
                         return;
                     case 4:
                         System.out.println(" 로그아웃됩니다...");
@@ -90,12 +88,36 @@ public class AdminView {
 
     }
 
+
+
     /**
      * method manageStore: 관리자의 매장 관리
      * 재료 메뉴 레시피 CRUD
      */
-    public static void manageStore() {
-//        AdminController.
+
+    private static void manageStore_selectAll() {
+        System.out.println("재료 아이디 | 재료 이름 | 재고 | 재고 카테고리 ");
+        AdminController.getStock();
+    }
+
+    public static void manageStore_changeStockAmount() {
+            System.out.println("수량 변경할 재고아이디 입력");
+            Long menuId= Long.valueOf(sc.next());
+            System.out.println("변경할 수량 입력");
+            int updatestock=sc.nextInt();
+
+            //메뉴 이름으로 검색 후 재고 수량 변경
+            AdminController.updatestockbyId(menuId,updatestock);
+
+        }
+    private static void manageStore_delete() {
+        System.out.println("삭제할 재료 아이디 입력");
+        String menuid=sc.nextLine();
+        System.out.println(menuid+"삭제하겠습니다.");
+
+        //메뉴 아이디로 검색 후 재료 삭제
+        AdminController.deleteByIngredientID(menuid);
+
     }
 
     /**

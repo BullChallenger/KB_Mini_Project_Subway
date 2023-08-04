@@ -4,9 +4,9 @@ import dto.IngredientDTO;
 import dto.MemberDTO;
 import dto.MemberOrderDTO;
 import dto.MenuDTO;
-import service.AdminService;
 import exception.member.MemberException;
 import exception.order.OrderException;
+import service.AdminService;
 import service.MemberService;
 import service.OrderService;
 import service.impl.AdminServiceImpl;
@@ -18,7 +18,10 @@ import view.SuccesssView;
 import vo.HistoryVo;
 import vo.OrderVo;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
 import static exception.constant.MemberExceptionType.NOT_FOUND_MEMBER_ERROR;
@@ -179,6 +182,7 @@ public class KioskController {
                 additionalSB.append(adminService.findByIngredientId(Long.parseLong(st.nextToken())).getIngredientName());
                 additionalSB.append(",");
             }
+            additionalSB.deleteCharAt(additionalSB.length()-1);
 
             st = new StringTokenizer(history.getExcludedVegetable());
             StringBuilder exvegeSB = new StringBuilder();
@@ -186,6 +190,7 @@ public class KioskController {
                 exvegeSB.append(adminService.findByIngredientId(Long.parseLong(st.nextToken())).getIngredientName());
                 exvegeSB.append(",");
             }
+            exvegeSB.deleteCharAt(exvegeSB.length()-1);
 
             st = new StringTokenizer(history.getSelectedSource());
             StringBuilder sourceSB = new StringBuilder();
@@ -193,13 +198,14 @@ public class KioskController {
                 sourceSB.append(adminService.findByIngredientId(Long.parseLong(st.nextToken())).getIngredientName());
                 sourceSB.append(",");
             }
+            sourceSB.deleteCharAt(sourceSB.length()-1);
 
             HistoryVo historyVo = new HistoryVo(
                     selectBread, selectCheese, additionalSB.toString(), exvegeSB.toString(), sourceSB.toString()
             );
             SuccesssView.printMemberOrderDTO(historyVo);
         } catch (OrderException e) {
-            e.printStackTrace();
+            FailView.errorMessage(404,"주문 기록이 없습니다.");
         }
     }
 

@@ -68,6 +68,16 @@ public class SuccesssView {
         }
         System.out.println();
     }
+    public static void messagePrint(String message) {
+        System.out.println(message);
+
+    }
+    public static void printStocks(List<IngredientDTO> ingredientDTOS) {
+        for (IngredientDTO ingredientDTO : ingredientDTOS) {
+            System.out.println(ingredientDTO.getIngredientId()+"|"+ingredientDTO.getIngredientName()+"|"+ingredientDTO.getStock()
+                    +"|"+ingredientDTO.getIngredientCategory());
+        }
+    }
 
     /**
      * method printAllMenu: 매뉴정보 출력
@@ -142,6 +152,9 @@ public class SuccesssView {
      * @param history 기록 정보
      */
     public static void printMemberOrderDTO(HistoryVo history) {
-        System.out.println(history);
+        System.out.println("============== 과거주문 ==============");
+        System.out.println("빵 : "+history.getBreadName()+"   |    치즈 : "+history.getCheeseName()+"     | 추가재료 : "+history.getAdditionalMenu());
+        System.out.println("제외한 채소 : "+history.getExcludeVege()+"     | 소스 : "+history.getSelectedSource());
+
     }
 }
