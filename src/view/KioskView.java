@@ -9,6 +9,8 @@ import vo.OrderVo;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class KioskView {
@@ -41,60 +43,76 @@ public class KioskView {
                         OrderVo vo = new OrderVo();
                         // 1-1 메뉴 전체 조회 후 출력
                         System.out.println("==================== 메뉴 선택 ====================");
-                        KioskController.menuSelectByAll();
+                        int menuSize = KioskController.menuSelectByAll();
 
                         // 1-2 사용자 메뉴 입력 받기
                         System.out.print("입력 > ");
                         int userSelectMenu = Integer.parseInt(sc.nextLine());//
+                        if (userSelectMenu > menuSize || userSelectMenu <= 0) throw new OrderException();
                         vo.setMenuId(userSelectMenu);
 
                         KioskController.getMemberOrderHistory(dto.getMemberId(), (long) menu);
 
                         // 2-1 빵 전체 조회 후 출력 및, 이전 히스토리가 있다면? 이전에 선택한 선택지 출력
                         System.out.println("==================== 빵 선택 ====================");
-                        KioskController.breadSelectByAll();
+                        int breadSize = KioskController.breadSelectByAll();
 
                         // 2-2 사용자 빵 입력 받기
                         System.out.print("입력 > ");
                         int userSelectBread = Integer.parseInt(sc.nextLine());
+                        if (userSelectBread > breadSize || userSelectBread <= 0) throw new OrderException();
                         vo.setSelectBread(userSelectBread);
 
                         // 3-1 치즈 출력
                         System.out.println("==================== 치즈 선택 ====================");
-                        KioskController.cheeseSelectByAll();
+                        int cheeseSize = KioskController.cheeseSelectByAll();
 
                         // 3-2 치즈 입력
                         System.out.print("입력 > ");
                         int userSelectCheese = Integer.parseInt(sc.nextLine());
+                        if (userSelectCheese > cheeseSize || userSelectCheese <= 0) throw new OrderException();
                         vo.setSelectCheese(userSelectCheese);
 
                         // 4-1 추가 선택 메뉴 출력
                         System.out.println("==================== 추가 메뉴 선택 ====================");
-                        KioskController.additionalMenuSelectByAll();
-
+                        int additionalMenuSize =  KioskController.additionalMenuSelectByAll();
                         // 4-2 추가 선택 메뉴 입력
                         System.out.print("입력 > ");
                         String userSelectAdditionalMenu = sc.nextLine();
+                        List<String> menuInputs = List.of(userSelectAdditionalMenu.split(" "));
+                        if (menuInputs.stream().map(input -> Integer.parseInt(input))
+                                .noneMatch(input -> input <= additionalMenuSize && input > 0)) {
+                            throw new OrderException();
+                        }
+
                         vo.setSelectedAdditionalMenu(userSelectAdditionalMenu);
 
                         // 5-1 전체 채소 출력
                         System.out.println("==================== 제외 채소 선택 ====================");
-                        KioskController.vegetableSelectByAll();
+                        int excludeVegeSize = KioskController.vegetableSelectByAll();
 
                         // 5-2 제외 채소 입력
                         System.out.print("입력 > ");
                         String userSelectExcludeVegetable = sc.nextLine();
                         vo.setExcludedVegetable(userSelectExcludeVegetable);
-
+                        List<String> vegeInputs = List.of(userSelectExcludeVegetable.split(" "));
+                        if (vegeInputs.stream().map(input -> Integer.parseInt(input))
+                                .noneMatch(input -> input <= excludeVegeSize && input > 0)) {
+                            throw new OrderException();
+                        }
                         // 6-1 소스 출력
                         System.out.println("==================== 소스 선택 ====================");
-                        KioskController.sourceSelectByAll();
+                        int sourceSize = KioskController.sourceSelectByAll();
 
                         // 6-2 소스 입력
                         System.out.print("입력 > ");
                         String userSelectSource = sc.nextLine();
                         vo.setSelectedSource(userSelectSource);
-
+                        List<String> sourceInputs = List.of(userSelectSource.split(" "));
+                        if (sourceInputs.stream().map(input -> Integer.parseInt(input))
+                                .noneMatch(input -> input <= sourceSize && input > 0)) {
+                            throw new OrderException();
+                        }
                         KioskController.order(dto.getMemberId(), vo);
                         break;
                     case 2:

@@ -79,13 +79,15 @@ public class KioskController {
     /**
      * 모든 메뉴 확인
      */
-    public static void menuSelectByAll() {
+    public static int menuSelectByAll() {
         try {
             List<MenuDTO> allMenu = orderService.findAllMenu();
             SuccesssView.printAllMenu(allMenu);
+            return allMenu.size();
         } catch (OrderException e) {
             FailView.errorMessage(NOT_FOUND_MENU_LIST.getErrorCode(), NOT_FOUND_MENU_LIST.getErrorMessage());
         }
+        return -1;
     }
 
     /**
