@@ -64,7 +64,10 @@ public class SuccesssView {
         }
         System.out.println();
     }
+    public static void messagePrint(String message) {
+        System.out.println(message);
 
+    }
     public static void printStocks(List<IngredientDTO> ingredientDTOS) {
         for (IngredientDTO ingredientDTO : ingredientDTOS) {
             System.out.println(ingredientDTO.getIngredientId()+"|"+ingredientDTO.getIngredientName()+"|"+ingredientDTO.getStock()

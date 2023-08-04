@@ -4,7 +4,6 @@ import common.DBManager;
 import dao.IngredientDAO;
 import dto.IngredientDTO;
 import exception.base.BaseException;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -288,7 +287,9 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
             conn = DBManager.getConnection();
             pstm = conn.prepareStatement(sql);
             pstm.setInt(1, stock);
-            pstm.executeUpdate();
+
+            theIngredient.setIngredientId(ingredientId);
+            theIngredient.setStock(stock);
 
             return theIngredient;
         }catch (SQLException e) {
@@ -302,7 +303,8 @@ public class IngredientDAOImpl implements IngredientDAO<IngredientDTO, Long> {
     public IngredientDTO updateIngredientStockByIngredientName(String ingredientName, int stock) {
         Connection conn = null;
         PreparedStatement pstm = null;
-        String sql = "UPDATE INGREDIENT SET STOCK = ? WHERE INGREDIENT_NAME = " + ingredientName;
+        String sql = "UPDATE INGREDIENT SET STOCK = ? WHERE INGREDIENT_NAME = '" + ingredientName + "'";
+
         IngredientDTO theIngredient = new IngredientDTO();
 
         try {

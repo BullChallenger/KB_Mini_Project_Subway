@@ -2,14 +2,10 @@ package view;
 
 import controller.KioskController;
 import dto.MemberDTO;
-import dto.MemberOrderDTO;
-import dto.MenuDTO;
 import exception.order.OrderException;
 import vo.OrderVo;
 
-import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
