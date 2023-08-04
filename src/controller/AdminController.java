@@ -9,7 +9,7 @@ public class AdminController {
         if (password.equals("1111")) {
             AdminView.startSetting();
         } else {
-            FailView.errorMessage("관리자 비밀번호가 틀렸습니다.");
+            FailView.errorMessage(1111, "관리자 비밀번호가 틀렸습니다.");
         }
     }
 

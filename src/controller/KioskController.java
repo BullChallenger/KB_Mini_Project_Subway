@@ -4,8 +4,9 @@ import dto.IngredientDTO;
 import dto.MemberDTO;
 import dto.MemberOrderDTO;
 import dto.MenuDTO;
-import exception.NotMemberException;
 import service.AdminService;
+import exception.member.MemberException;
+import exception.order.OrderException;
 import service.MemberService;
 import service.OrderService;
 import service.impl.AdminServiceImpl;
@@ -18,6 +19,9 @@ import vo.HistoryVo;
 import vo.OrderVo;
 
 import java.util.*;
+
+import static exception.constant.MemberExceptionType.NOT_FOUND_MEMBER_ERROR;
+import static exception.constant.OrderExceptionType.*;
 
 public class KioskController {
 
@@ -40,9 +44,10 @@ public class KioskController {
             // MenuView로 바로 갈지 or SuccessView 통해서 갈지 고려
             // 현재는 바로 MenuView로 호출
             KioskView.startOrder(dto);
-        } catch (NotMemberException e) {
-            e.printStackTrace();
-            FailView.errorMessage(e.getMessage());
+        } catch (MemberException e) {
+            FailView.errorMessage(NOT_FOUND_MEMBER_ERROR.getErrorCode(), NOT_FOUND_MEMBER_ERROR.getErrorMessage());
+        } catch (OrderException e) {
+            FailView.errorMessage(NOT_FOUND_MENU_ERROR.getErrorCode(), NOT_FOUND_MENU_ERROR.getErrorMessage());
         }
     }
 
@@ -54,8 +59,8 @@ public class KioskController {
         try {
             cart.add(vo);
             KioskView.addCartOrPay(memberId, cart);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
+        } catch (OrderException e) {
+            FailView.errorMessage(NOT_FOUND_MENU_ERROR.getErrorCode(), NOT_FOUND_MENU_ERROR.getErrorMessage());
         }
     }
 
@@ -66,8 +71,8 @@ public class KioskController {
         try {
             List<MemberOrderDTO> allOrderInfo = orderService.findAllOrderInfo();
             SuccesssView.printOrderStatus(allOrderInfo);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
+        } catch (OrderException e) {
+            FailView.errorMessage(NOT_FOUND_ORDER_LIST.getErrorCode(), NOT_FOUND_ORDER_LIST.getErrorMessage());
         }
     }
 
@@ -78,69 +83,79 @@ public class KioskController {
         try {
             List<MenuDTO> allMenu = orderService.findAllMenu();
             SuccesssView.printAllMenu(allMenu);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
+        } catch (OrderException e) {
+            FailView.errorMessage(NOT_FOUND_MENU_LIST.getErrorCode(), NOT_FOUND_MENU_LIST.getErrorMessage());
         }
     }
 
     /**
      * 선택 가능한 빵 확인
      */
-    public static void breadSelectByAll() {
+    public static int breadSelectByAll() {
         try {
             List<IngredientDTO> ingredientDTOS = orderService.findIngredientByIngredientCategory(1);
             SuccesssView.printSelect(ingredientDTOS);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
+            return ingredientDTOS.size();
+        } catch (OrderException e) {
+            FailView.errorMessage(NOT_FOUND_INGREDIENT_LIST.getErrorCode(), NOT_FOUND_INGREDIENT_LIST.getErrorMessage());
         }
+        return -1;
     }
 
     /**
      * 선택 가능한 치즈 확인
      */
-    public static void cheeseSelectByAll() {
+    public static int cheeseSelectByAll() {
         try {
             List<IngredientDTO> ingredientDTOS = orderService.findIngredientByIngredientCategory(2);
             SuccesssView.printSelect(ingredientDTOS);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
+            return ingredientDTOS.size();
+        } catch (OrderException e) {
+            FailView.errorMessage(NOT_FOUND_INGREDIENT_LIST.getErrorCode(), NOT_FOUND_INGREDIENT_LIST.getErrorMessage());
         }
+        return -1;
     }
 
     /**
      * 선택 가능한 추가메뉴 확인
      */
-    public static void additionalMenuSelectByAll() {
+    public static int additionalMenuSelectByAll() {
         try {
             List<IngredientDTO> ingredientDTOS = orderService.findIngredientByIngredientCategory(3);
             SuccesssView.printSelect(ingredientDTOS);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
+            return ingredientDTOS.size();
+        } catch (OrderException e) {
+            FailView.errorMessage(NOT_FOUND_INGREDIENT_LIST.getErrorCode(), NOT_FOUND_INGREDIENT_LIST.getErrorMessage());
         }
+        return -1;
     }
 
     /**
      * 제외 가능한 야채 확인
      */
-    public static void vegetableSelectByAll() {
+    public static int vegetableSelectByAll() {
         try {
             List<IngredientDTO> ingredientDTOS = orderService.findIngredientByIngredientCategory(4);
             SuccesssView.printSelect(ingredientDTOS);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
+            return ingredientDTOS.size();
+        } catch (OrderException e) {
+            FailView.errorMessage(NOT_FOUND_INGREDIENT_LIST.getErrorCode(), NOT_FOUND_INGREDIENT_LIST.getErrorMessage());
         }
+        return -1;
     }
 
     /**
      * 선택 가능한 소스 확인
      */
-    public static void sourceSelectByAll() {
+    public static int sourceSelectByAll() {
         try {
             List<IngredientDTO> ingredientDTOS = orderService.findIngredientByIngredientCategory(5);
             SuccesssView.printSelect(ingredientDTOS);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
+            return ingredientDTOS.size();
+        } catch (OrderException e) {
+            FailView.errorMessage(NOT_FOUND_INGREDIENT_LIST.getErrorCode(), NOT_FOUND_INGREDIENT_LIST.getErrorMessage());
         }
+        return -1;
     }
 
     /**
@@ -180,7 +195,7 @@ public class KioskController {
                     selectBread, selectCheese, additionalSB.toString(), exvegeSB.toString(), sourceSB.toString()
             );
             SuccesssView.printMemberOrderDTO(historyVo);
-        } catch (RuntimeException e) {
+        } catch (OrderException e) {
             e.printStackTrace();
         }
     }
@@ -190,9 +205,10 @@ public class KioskController {
      */
     public static void cartPayment(long memberId) {
 
+        MemberOrderDTO orderDTO;
         try {
             for (OrderVo vo : cart) {
-                MemberOrderDTO orderDTO = orderService.saveMemberOrder(new MemberOrderDTO(
+                orderDTO = orderService.saveMemberOrder(new MemberOrderDTO(
                         (long) 0,
                         mapping(1, vo.getSelectBread()),
                         mapping(2, vo.getSelectCheese()),
@@ -221,7 +237,7 @@ public class KioskController {
             }
             SuccesssView.printMenuInfo(cartMenu);
         } catch (RuntimeException e) {
-            e.printStackTrace();
+            throw new OrderException();
         }
     }
 

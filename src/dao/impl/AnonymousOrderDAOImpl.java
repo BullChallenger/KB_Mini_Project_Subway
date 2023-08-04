@@ -3,7 +3,8 @@ package dao.impl;
 import common.DBManager;
 import dao.AnonymousOrderDAO;
 import dto.AnonymousOrderDTO;
-import dto.MemberDTO;
+import exception.base.BaseException;
+import exception.admin.AdminException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -179,7 +180,7 @@ public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDT
             return anonymousOrderList;
         }catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -201,7 +202,7 @@ public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDT
             return rs.getLong(1);
         }catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -219,7 +220,7 @@ public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDT
 
             pstm.executeUpdate();
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new AdminException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
@@ -237,7 +238,7 @@ public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDT
 
             pstm.setLong(1, dto.getAnonymousOrderId());
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new AdminException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
@@ -253,7 +254,7 @@ public class AnonymousOrderDAOImpl implements AnonymousOrderDAO<AnonymousOrderDT
             conn = DBManager.getConnection();
             pstm = conn.prepareStatement(sql);
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new AdminException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }

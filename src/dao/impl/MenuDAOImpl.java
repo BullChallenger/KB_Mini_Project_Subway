@@ -2,6 +2,7 @@ package dao.impl;
 import common.DBManager;
 import dao.MenuDAO;
 import dto.MenuDTO;
+import exception.base.BaseException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,7 +37,7 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
             result=ps.executeUpdate();
             return dto;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new BaseException();
         }finally{
             DBManager.releaseConnection(con,ps);
         }
@@ -64,7 +65,7 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
             return dto;
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new BaseException();
         } finally {
             DBManager.releaseConnection(con, ps);
         }
@@ -86,7 +87,7 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
 
             return result;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new BaseException();
         } finally {
             DBManager.releaseConnection(con, ps);
         }
@@ -108,7 +109,7 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
 
             return result;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new BaseException();
         } finally {
             DBManager.releaseConnection(con, ps);
         }
@@ -142,7 +143,7 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
             return dto;
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new BaseException();
         } finally {
             DBManager.releaseConnection(con, ps);
         }
@@ -176,7 +177,7 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
             return dto;
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new BaseException();
         } finally {
             DBManager.releaseConnection(con, ps);
         }
@@ -209,7 +210,7 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
             }
             return list;
         }catch(SQLException e){
-            throw new RuntimeException(e);
+            throw new BaseException();
         } finally {
             DBManager.releaseConnection(con, ps);
         }
@@ -231,7 +232,7 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
 
             return rs.getLong(1);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new BaseException();
         } finally {
             DBManager.releaseConnection(con, ps);
 
@@ -252,7 +253,7 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
                 ps.setLong(1,Menuid);
                 result= ps.executeUpdate();
             }catch(SQLException e){
-                throw new RuntimeException(e);
+                throw new BaseException();
             }finally{
                 DBManager.releaseConnection(con, ps);
             }
@@ -273,7 +274,7 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
 
             result= ps.executeUpdate();
         }catch(SQLException e){
-            throw new RuntimeException(e);
+            throw new BaseException();
         }finally{
             DBManager.releaseConnection(con, ps);
         }
@@ -292,7 +293,7 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
             ps = con.prepareStatement(sql);
             result= ps.executeUpdate();
         }catch(SQLException e){
-            throw new RuntimeException(e);
+            throw new BaseException();
         }finally{
             DBManager.releaseConnection(con, ps);
         }
@@ -310,7 +311,7 @@ public class MenuDAOImpl implements MenuDAO<MenuDTO, Long>{
             ps.setString(1, menuName);
 
         }catch(SQLException e){
-            throw new RuntimeException(e);
+            throw new BaseException();
         }finally{
             DBManager.releaseConnection(con, ps);
         }

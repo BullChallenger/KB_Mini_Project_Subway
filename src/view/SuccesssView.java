@@ -88,8 +88,11 @@ public class SuccesssView {
 
     public static void printOrderStatus(List<MemberOrderDTO> allOrderInfo) {
         for (MemberOrderDTO memberOrderDTO : allOrderInfo) {
-            System.out.println(memberOrderDTO.getMemberId());
-            System.out.println(memberOrderDTO.getMemberOrderId());
+            System.out.println("==================");
+            System.out.println("|| " + memberOrderDTO.getMemberId() + "번 고객님 ||");
+            System.out.println("-----------------");
+            System.out.println("|| 주문번호:" + memberOrderDTO.getMemberOrderId() + " ||");
+            System.out.println("==================");
         }
     }
 

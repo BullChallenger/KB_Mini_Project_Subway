@@ -2,8 +2,8 @@ package dao.impl;
 
 import common.DBManager;
 import dao.MemberOrderDAO;
-import dto.IngredientDTO;
 import dto.MemberOrderDTO;
+import exception.base.BaseException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return dto;
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
@@ -69,7 +69,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return dto;
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
@@ -102,7 +102,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return theMemberOrder;
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -143,7 +143,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return memberOrderList;
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -165,7 +165,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
             return rs.getLong(1);
         }catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -183,7 +183,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             pstm.executeUpdate();
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
@@ -201,7 +201,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             pstm.setLong(1, dto.getMemberOrderId());
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
@@ -217,7 +217,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
             conn = DBManager.getConnection();
             pstm = conn.prepareStatement(sql);
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }
@@ -238,8 +238,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return rs.getLong(1);
         }catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -260,8 +259,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return rs.getLong(1);
         }catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -282,8 +280,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return rs.getLong(1);
         }catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -320,7 +317,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return memberOrderList;
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -358,7 +355,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return memberOrderList;
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -391,8 +388,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return theMemberOrder;
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            throw new BaseException();
         } finally {
             DBManager.releaseConnection(conn, st, rs);
         }
@@ -411,7 +407,7 @@ public class MemberOrderDAOImpl implements MemberOrderDAO<MemberOrderDTO, Long> 
 
             return pstm.executeUpdate();
         }catch (SQLException e) {
-            throw new RuntimeException();
+            throw new BaseException();
         }finally {
             DBManager.releaseConnection(conn, pstm);
         }

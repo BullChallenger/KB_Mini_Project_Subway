@@ -4,6 +4,7 @@ import controller.KioskController;
 import dto.MemberDTO;
 import dto.MemberOrderDTO;
 import dto.MenuDTO;
+import exception.order.OrderException;
 import vo.OrderVo;
 
 import java.sql.Connection;
@@ -52,6 +53,7 @@ public class KioskView {
                         // 2-1 빵 전체 조회 후 출력 및, 이전 히스토리가 있다면? 이전에 선택한 선택지 출력
                         System.out.println("==================== 빵 선택 ====================");
                         KioskController.breadSelectByAll();
+
                         // 2-2 사용자 빵 입력 받기
                         System.out.print("입력 > ");
                         int userSelectBread = Integer.parseInt(sc.nextLine());
@@ -109,6 +111,10 @@ public class KioskView {
                 }
             } catch (NumberFormatException e) {
                 System.out.println("메뉴는 숫자만 가능합니다.");
+            } catch (NullPointerException e) {
+                throw new OrderException();
+            } catch (OrderException e) {
+                throw new OrderException();
             }
         }//while문
     }
@@ -157,6 +163,8 @@ public class KioskView {
             }
         } catch (NumberFormatException e) {
             System.out.println("메뉴는 숫자만 가능합니다.");
+        } catch (OrderException e) {
+            throw new OrderException();
         }
 
     }
